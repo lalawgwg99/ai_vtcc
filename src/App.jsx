@@ -49,7 +49,7 @@ const TRANSLATIONS = {
     manualTitle: "使用說明書",
     manualClose: "關閉",
     switchLangPrompt: "切換語言將重置所有角色設定為預設值，確定嗎？",
-    defaultMissionBuilder: "優化 NoMac App Launcher 的輸入驗證邏輯",
+    defaultMissionBuilder: "",
     defaultMissionAuditor: "審查使用者提供的 GitHub 專案代碼，指出架構漏洞、資安風險，並提出重構建議。",
 
     // Agent Roles for UI
@@ -105,7 +105,7 @@ const TRANSLATIONS = {
     manualTitle: "User Manual",
     manualClose: "Close",
     switchLangPrompt: "Switching language will reset all roles to defaults. Continue?",
-    defaultMissionBuilder: "Optimize input validation logic for NoMac App Launcher",
+    defaultMissionBuilder: "",
     defaultMissionAuditor: "Audit the provided GitHub repo for security vulnerabilities and architectural flaws.",
 
     // Agent Roles for UI
