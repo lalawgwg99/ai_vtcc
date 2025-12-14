@@ -1,0 +1,34 @@
+🚀 VTCC 雲端部署指南 (Deployment Guide)恭喜！你已經完成了 VTCC (Virtual Team Command Center) v3.6 的開發。這份指南將教你如何將這個單一檔案變成一個可以分享給全世界使用的網站。🛠️ 準備工作 (Prerequisites)Node.js: 確保電腦有安裝 (建議 v18 以上)。GitHub 帳號: 用來存放代碼。Vercel 帳號 (推薦): 用來免費託管網站，支援一鍵從 GitHub 部署。步驟 1: 建立專案骨架 (Local Setup)打開你的終端機 (Terminal/Command Prompt)，執行以下指令來建立一個現代化的 React 專案 (使用 Vite)：# 1. 建立專案 (專案名稱叫 vtcc-app)
+npm create vite@latest vtcc-app -- --template react
+
+# 2. 進入資料夾
+cd vtcc-app
+
+# 3. 安裝依賴套件 (核心 + 圖示庫)
+npm install
+npm install lucide-react
+步驟 2: 安裝 Tailwind CSS (關鍵！不做會變醜)因為 VTCC 使用了 Tailwind 的樣式 (如 bg-slate-900)，必須安裝它：# 1. 安裝 Tailwind
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+修改 tailwind.config.js：打開這個檔案，把 content 那一行改成這樣，讓它掃描你的檔案：/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+修改 src/index.css：清空裡面的內容，只貼上這三行：@tailwind base;
+@tailwind components;
+@tailwind utilities;
+步驟 3: 植入 VTCC 核心代碼複製代碼：回到我們對話視窗右側的 VirtualTeamBuilder.jsx，全選並複製代碼。貼上檔案：在你的專案資料夾中，找到 src/App.jsx。刪除原本 App.jsx 裡的所有內容。貼上 你剛剛複製的 VTCC 代碼。(注意：如果複製過來的 Component 名稱是 VirtualTeamBuilder，記得把最後一行改為 export default VirtualTeamBuilder;，或者把 src/main.jsx 裡的引用改對應)。本地測試：在終端機輸入：npm run dev
+打開瀏覽器 (通常是 http://localhost:5173)，你應該會看到駭客風格的指揮中心在運作了！步驟 4: 推送至 GitHub在 GitHub 網站上建立一個新 Repository (例如 vtcc-command-center)。在你的專案資料夾執行：git init
+git add .
+git commit -m "Initial commit: VTCC v3.6 Decision Engine"
+git branch -M main
+git remote add origin [https://github.com/你的帳號/vtcc-command-center.git](https://github.com/你的帳號/vtcc-command-center.git)
+git push -u origin main
+步驟 5: 上雲端 (Deploy to Vercel)這是最簡單的一步：去 Vercel.com 註冊/登入。點擊 "Add New..." -> "Project"。選擇 "Import from GitHub"。找到你剛剛上傳的 vtcc-command-center 專案，點擊 Import。設定保持預設，直接點擊 "Deploy"。等待約 1 分鐘，Vercel 會給你一個網址 (例如 https://vtcc-command-center.vercel.app)。🎉 完成！現在你可以把這個網址傳給你的手機，或是你的老闆，隨時隨地指揮你的 AI 軍隊了。
