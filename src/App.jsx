@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  Users, Play, Copy, Plus, Trash2, Save, RefreshCw, MessageSquare, 
-  Terminal, Gavel, ShieldCheck, Smartphone, Eye, EyeOff, Hammer, FileCode, 
-  TrendingUp, AlertTriangle, CheckCircle, XCircle, Globe, HelpCircle, X, Info, Zap, Activity, Coffee 
+import {
+  Users, Play, Copy, Plus, Trash2, Save, RefreshCw, MessageSquare,
+  Terminal, Gavel, ShieldCheck, Smartphone, Eye, EyeOff, Hammer, FileCode,
+  TrendingUp, AlertTriangle, CheckCircle, XCircle, Globe, HelpCircle, X, Info, Zap, Activity, Coffee
 } from 'lucide-react';
 
 // ================================
@@ -11,7 +11,7 @@ import {
 
 const TRANSLATIONS = {
   zh: {
-    appTitle: "VTCC: 虛擬團隊指揮中心",
+    appTitle: "VTCC: AI 團隊決策系統",
     appSubtitle: "多智能體決策引擎 v3.6",
     builderMode: "開發模式",
     auditorMode: "審計模式",
@@ -19,7 +19,7 @@ const TRANSLATIONS = {
     modeAuditorDesc: "Auditor",
     reset: "重置設定",
     missionTitle: "1. 定義任務 (Mission)",
-    missionPlaceholder: "輸入本次要決策的任務或代碼審查目標...",
+    missionPlaceholder: "例：分析電商/代碼/檔案系統的效能瓶頸",
     enableSRE: "SRE 監控標準",
     enableSREDesc: "注入監控儀表板 Schema (KPIs, Alerts)。",
     enablePlain: "白話文結案報告",
@@ -51,7 +51,7 @@ const TRANSLATIONS = {
     switchLangPrompt: "切換語言將重置所有角色設定為預設值，確定嗎？",
     defaultMissionBuilder: "優化 NoMac App Launcher 的輸入驗證邏輯",
     defaultMissionAuditor: "審查使用者提供的 GitHub 專案代碼，指出架構漏洞、資安風險，並提出重構建議。",
-    
+
     // Agent Roles for UI
     rolePM: "PM 專案經理",
     roleBackend: "後端主管",
@@ -67,7 +67,7 @@ const TRANSLATIONS = {
     roleSec: "資安專家"
   },
   en: {
-    appTitle: "VTCC: Virtual Team Command",
+    appTitle: "VTCC: AI Team Decision System",
     appSubtitle: "Multi-Agent Decision Engine v3.6",
     builderMode: "Builder Mode",
     auditorMode: "Auditor Mode",
@@ -75,7 +75,7 @@ const TRANSLATIONS = {
     modeAuditorDesc: "Auditor",
     reset: "Reset",
     missionTitle: "1. Define Mission",
-    missionPlaceholder: "Enter your task or code review objective...",
+    missionPlaceholder: "e.g., Analyze performance bottlenecks in e-commerce/code/file systems",
     enableSRE: "SRE Protocols",
     enableSREDesc: "Inject Monitoring Dashboard Schema (KPIs, Alerts).",
     enablePlain: "Plain Language Report",
@@ -126,15 +126,15 @@ const TRANSLATIONS = {
 
 // Tag Definitions with Bilingual Labels
 const TAG_DEFINITIONS = [
-    { id: 'stability', labelZh: 'Stability / 穩定性', labelEn: 'Stability' },
-    { id: 'performance', labelZh: 'Performance / 效能', labelEn: 'Performance' },
-    { id: 'ux', labelZh: 'UX / 使用者體驗', labelEn: 'UX' },
-    { id: 'security_risk', labelZh: 'Security Risk / 資安風險', labelEn: 'Security Risk' },
-    { id: 'technical_debt', labelZh: 'Tech Debt / 技術債', labelEn: 'Technical Debt' },
-    { id: 'viral', labelZh: 'Viral / 病毒式傳播', labelEn: 'Viral Growth' },
-    { id: 'feature', labelZh: 'New Feature / 新功能', labelEn: 'New Feature' },
-    { id: 'legacy_browser', labelZh: 'Legacy Support / 舊版支援', labelEn: 'Legacy Support' },
-    { id: 'complex', labelZh: 'Complex / 高複雜度', labelEn: 'High Complexity' }
+  { id: 'stability', labelZh: 'Stability / 穩定性', labelEn: 'Stability' },
+  { id: 'performance', labelZh: 'Performance / 效能', labelEn: 'Performance' },
+  { id: 'ux', labelZh: 'UX / 使用者體驗', labelEn: 'UX' },
+  { id: 'security_risk', labelZh: 'Security Risk / 資安風險', labelEn: 'Security Risk' },
+  { id: 'technical_debt', labelZh: 'Tech Debt / 技術債', labelEn: 'Technical Debt' },
+  { id: 'viral', labelZh: 'Viral / 病毒式傳播', labelEn: 'Viral Growth' },
+  { id: 'feature', labelZh: 'New Feature / 新功能', labelEn: 'New Feature' },
+  { id: 'legacy_browser', labelZh: 'Legacy Support / 舊版支援', labelEn: 'Legacy Support' },
+  { id: 'complex', labelZh: 'Complex / 高複雜度', labelEn: 'High Complexity' }
 ];
 
 // Monitoring Schema Definition
@@ -233,7 +233,7 @@ class AIAgent {
 
 const getPresets = (lang) => {
   const t = TRANSLATIONS[lang];
-  
+
   const core = [
     new AIAgent({
       id: 1, active: true, name: 'Steve', icon: '👔', role: t.rolePM, desc: lang === 'zh' ? '極簡主義者，負責決策與派工，對細節有強迫症。' : 'Minimalist decision maker, detail-oriented.',
@@ -343,7 +343,7 @@ const VirtualTeamBuilder = () => {
   // State
   const [lang, setLang] = usePersistentState('vtcc_lang', 'zh'); // 'zh' or 'en'
   const [mode, setMode] = usePersistentState('vtcc_mode_v3', 'builder');
-  
+
   // Load initial data based on current lang logic is handled in reset/init
   // But for persistent state, we load what's saved. 
   // We'll init with ZH presets if empty.
@@ -352,16 +352,16 @@ const VirtualTeamBuilder = () => {
   const [coreTeam, setCoreTeam] = usePersistentState('vtcc_coreTeam_v3', initialPresets.core);
   const [users, setUsers] = usePersistentState('vtcc_users_v3', initialPresets.users);
   const [judges, setJudges] = usePersistentState('vtcc_judges_v3', initialPresets.judges);
-  
+
   const [meetingRound, setMeetingRound] = usePersistentState('vtcc_round', 1);
   const [mission, setMission] = usePersistentState('vtcc_mission', TRANSLATIONS.zh.defaultMissionBuilder);
-  
+
   // Proposal Simulation
   const [proposalRisk, setProposalRisk] = useState(0.5);
   const [proposalTags, setProposalTags] = useState(['stability', 'ux']);
   const [enableSRE, setEnableSRE] = useState(false); // SRE Toggle State
   const [enablePlain, setEnablePlain] = useState(false); // Plain Language Report Toggle
-  
+
   const [generatedPrompt, setGeneratedPrompt] = useState('');
   const [copyFeedback, setCopyFeedback] = useState(false);
   const [showManual, setShowManual] = useState(false);
@@ -409,24 +409,24 @@ const VirtualTeamBuilder = () => {
 
   const resetData = () => {
     if (window.confirm('Reset all data?')) {
-        const presets = getPresets(lang);
-        setCoreTeam(presets.core);
-        setUsers(presets.users);
-        setJudges(presets.judges);
-        setMeetingRound(1);
-        setMission(mode === 'builder' ? t.defaultMissionBuilder : t.defaultMissionAuditor);
-        setMode('builder');
-        setEnableSRE(false);
-        setEnablePlain(false);
+      const presets = getPresets(lang);
+      setCoreTeam(presets.core);
+      setUsers(presets.users);
+      setJudges(presets.judges);
+      setMeetingRound(1);
+      setMission(mode === 'builder' ? t.defaultMissionBuilder : t.defaultMissionAuditor);
+      setMode('builder');
+      setEnableSRE(false);
+      setEnablePlain(false);
     }
   };
 
   const toggleMember = (list, setList, id) => {
     const newList = list.map(m => {
-        if (m.id === id) {
-            return new AIAgent({ ...m, active: !m.active });
-        }
-        return new AIAgent(m); 
+      if (m.id === id) {
+        return new AIAgent({ ...m, active: !m.active });
+      }
+      return new AIAgent(m);
     });
     setList(newList);
   };
@@ -443,12 +443,12 @@ const VirtualTeamBuilder = () => {
   const simulationResults = useMemo(() => {
     const allAgents = [...coreTeam, ...users, ...judges];
     const proposal = { risk: proposalRisk, tags: proposalTags };
-    
+
     const results = allAgents
       .filter(a => a.active)
       .map(agent => {
-         const agentInstance = agent instanceof AIAgent ? agent : new AIAgent(agent);
-         return agentInstance.evaluateProposal(proposal);
+        const agentInstance = agent instanceof AIAgent ? agent : new AIAgent(agent);
+        return agentInstance.evaluateProposal(proposal);
       })
       .filter(r => r !== null);
 
@@ -459,14 +459,14 @@ const VirtualTeamBuilder = () => {
   // Prompt Generation
   const generatePrompt = () => {
     const allActive = [...coreTeam, ...users, ...judges].filter(m => m.active);
-    
+
     // Determine language-specific headers
-    let systemHeader = mode === 'auditor' 
-        ? `**[SYSTEM START: SECURITY_AUDIT_MODE]**` 
-        : `**[SYSTEM START: VIRTUAL_SOFTWARE_COMPANY]**`;
-    
+    let systemHeader = mode === 'auditor'
+      ? `**[SYSTEM START: SECURITY_AUDIT_MODE]**`
+      : `**[SYSTEM START: VIRTUAL_SOFTWARE_COMPANY]**`;
+
     const agentProfiles = allActive.map(m => {
-        return `- ${m.icon} **${m.name}** (${m.role})
+      return `- ${m.icon} **${m.name}** (${m.role})
   - **Auth**: ${m.authority}, **RiskTol**: ${m.personality.riskTolerance}
   - **Bias**: Prefers [${m.decisionBias.prefers?.join(', ')}], Avoids [${m.decisionBias.avoids?.join(', ')}]
   - **RedFlags**: [${m.decisionBias.redFlags?.join(', ')}]
@@ -475,7 +475,7 @@ const VirtualTeamBuilder = () => {
 
     let additionalInstructions = '';
     if (enableSRE) {
-        additionalInstructions += lang === 'zh' ? `
+      additionalInstructions += lang === 'zh' ? `
 ### 📊 監控與維運 (Monitoring & SRE)
 團隊已啟用 SRE 協議。請根據以下監控架構定義上線後的成功指標與自動回滾機制：
 \`\`\`json
@@ -493,7 +493,7 @@ ${JSON.stringify(MONITORING_SCHEMA_TEMPLATE, null, 2)}
     }
 
     if (enablePlain) {
-        additionalInstructions += lang === 'zh' ? `
+      additionalInstructions += lang === 'zh' ? `
 ### ☕ 白話文結案報告 (Plain Language Report)
 請追加 **Phase 5**，由 **Sam (行銷/翻譯)** 撰寫一份「給真人老闆看的結案報告」。
 - 🚫 **禁止技術術語**：不要講 API, JSON, React 等詞彙。
@@ -591,16 +591,16 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
       // 優先使用 execCommand 作為 iframe/sandboxed 環境的 fallback
       const textArea = document.createElement("textarea");
       textArea.value = generatedPrompt;
-      
+
       // 確保元素存在但不可見，避免影響畫面佈局
       textArea.style.position = "fixed";
       textArea.style.left = "-9999px";
       textArea.style.top = "0";
       document.body.appendChild(textArea);
-      
+
       textArea.focus();
       textArea.select();
-      
+
       const successful = document.execCommand('copy');
       document.body.removeChild(textArea);
 
@@ -614,17 +614,17 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
       console.warn('Fallback copy failed, trying navigator.clipboard...', err);
       // 如果 execCommand 失敗，嘗試使用現代 API
       if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(generatedPrompt)
-            .then(() => {
-              setCopyFeedback(true);
-              setTimeout(() => setCopyFeedback(false), 2000);
-            })
-            .catch(e => {
-              console.error('All copy methods failed', e);
-              alert("無法存取剪貼簿，請手動選取文字複製 (Ctrl+A, Ctrl+C)。");
-            });
+        navigator.clipboard.writeText(generatedPrompt)
+          .then(() => {
+            setCopyFeedback(true);
+            setTimeout(() => setCopyFeedback(false), 2000);
+          })
+          .catch(e => {
+            console.error('All copy methods failed', e);
+            alert("無法存取剪貼簿，請手動選取文字複製 (Ctrl+A, Ctrl+C)。");
+          });
       } else {
-          alert("您的瀏覽器不支援自動複製，請手動選取文字複製。");
+        alert("您的瀏覽器不支援自動複製，請手動選取文字複製。");
       }
     }
   };
@@ -641,7 +641,7 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
   return (
     <div className={`min-h-screen ${currentTheme.bg} ${currentTheme.textMain} p-6 font-sans pb-24 lg:pb-6 transition-colors duration-500`}>
       <div className="max-w-7xl mx-auto space-y-6">
-        
+
         {/* Header */}
         <header className={`flex justify-between items-center border-b ${currentTheme.border} pb-6 flex-wrap gap-4`}>
           <div>
@@ -650,249 +650,249 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
               {t.appTitle}
             </h1>
             <p className="text-slate-400 mt-2 text-sm flex gap-2 items-center">
-                {t.appSubtitle}
-                <span className={`px-2 py-0.5 rounded text-xs border ${mode === 'auditor' ? 'border-green-500 text-green-400' : 'border-blue-500 text-blue-400'}`}>
-                    {mode === 'auditor' ? t.modeAuditorDesc : t.modeBuilderDesc}
-                </span>
+              {t.appSubtitle}
+              <span className={`px-2 py-0.5 rounded text-xs border ${mode === 'auditor' ? 'border-green-500 text-green-400' : 'border-blue-500 text-blue-400'}`}>
+                {mode === 'auditor' ? t.modeAuditorDesc : t.modeBuilderDesc}
+              </span>
             </p>
           </div>
           <div className="flex gap-2 items-center">
-             {/* Language Switcher */}
-             <div className="flex bg-slate-800 rounded p-1 mr-2 border border-slate-700">
-                <button 
-                  onClick={() => switchLanguage('zh')} 
-                  className={`px-2 py-1 rounded text-xs ${lang==='zh' ? 'bg-slate-600 text-white' : 'text-slate-400'}`}
-                >
-                    繁中
-                </button>
-                <button 
-                  onClick={() => switchLanguage('en')} 
-                  className={`px-2 py-1 rounded text-xs ${lang==='en' ? 'bg-slate-600 text-white' : 'text-slate-400'}`}
-                >
-                    EN
-                </button>
-             </div>
+            {/* Language Switcher */}
+            <div className="flex bg-slate-800 rounded p-1 mr-2 border border-slate-700">
+              <button
+                onClick={() => switchLanguage('zh')}
+                className={`px-2 py-1 rounded text-xs ${lang === 'zh' ? 'bg-slate-600 text-white' : 'text-slate-400'}`}
+              >
+                繁中
+              </button>
+              <button
+                onClick={() => switchLanguage('en')}
+                className={`px-2 py-1 rounded text-xs ${lang === 'en' ? 'bg-slate-600 text-white' : 'text-slate-400'}`}
+              >
+                EN
+              </button>
+            </div>
 
-             <button onClick={() => setMode('builder')} className={`px-3 py-1.5 text-xs rounded border ${mode==='builder' ? 'bg-blue-600 border-blue-500' : 'border-slate-600'} transition-all`}>{t.modeBuilderDesc}</button>
-             <button onClick={() => setMode('auditor')} className={`px-3 py-1.5 text-xs rounded border ${mode==='auditor' ? 'bg-green-700 border-green-500' : 'border-slate-600'} transition-all`}>{t.modeAuditorDesc}</button>
-             
-             {/* Help Button */}
-             <button onClick={() => setShowManual(true)} className="p-2 text-slate-400 hover:text-white transition-colors">
-                <HelpCircle className="w-5 h-5" />
-             </button>
+            <button onClick={() => setMode('builder')} className={`px-3 py-1.5 text-xs rounded border ${mode === 'builder' ? 'bg-blue-600 border-blue-500' : 'border-slate-600'} transition-all`}>{t.modeBuilderDesc}</button>
+            <button onClick={() => setMode('auditor')} className={`px-3 py-1.5 text-xs rounded border ${mode === 'auditor' ? 'bg-green-700 border-green-500' : 'border-slate-600'} transition-all`}>{t.modeAuditorDesc}</button>
+
+            {/* Help Button */}
+            <button onClick={() => setShowManual(true)} className="p-2 text-slate-400 hover:text-white transition-colors">
+              <HelpCircle className="w-5 h-5" />
+            </button>
           </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
+
           {/* Left: Configuration */}
           <div className="lg:col-span-5 space-y-6">
             <section className={`${currentTheme.cardBg} rounded-xl p-5 border ${currentTheme.border}`}>
-               <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">{t.missionTitle}</h2>
-               <textarea 
-                  value={mission}
-                  onChange={(e) => setMission(e.target.value)}
-                  className="w-full bg-black/20 border border-slate-600 rounded p-3 text-sm focus:border-blue-500 outline-none resize-none h-24 mb-3"
-                  placeholder={t.missionPlaceholder}
-               />
-               
-               <div className="grid grid-cols-1 gap-2">
-                   {/* SRE Toggle */}
-                   <div 
-                      onClick={() => setEnableSRE(!enableSRE)}
-                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${enableSRE ? 'bg-indigo-900/40 border-indigo-500' : 'bg-black/20 border-slate-700 hover:bg-slate-800'}`}
-                   >
-                      <div className={`w-10 h-6 rounded-full p-1 transition-colors ${enableSRE ? 'bg-indigo-500' : 'bg-slate-600'}`}>
-                         <div className={`w-4 h-4 bg-white rounded-full transition-transform ${enableSRE ? 'translate-x-4' : 'translate-x-0'}`} />
-                      </div>
-                      <div className="flex-1">
-                         <div className={`text-sm font-bold flex items-center gap-2 ${enableSRE ? 'text-indigo-300' : 'text-slate-400'}`}>
-                            <Activity className="w-4 h-4" />
-                            {t.enableSRE}
-                         </div>
-                         <div className="text-xs text-slate-500 mt-0.5 leading-tight opacity-80">
-                            {t.enableSREDesc}
-                         </div>
-                      </div>
-                   </div>
+              <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">{t.missionTitle}</h2>
+              <textarea
+                value={mission}
+                onChange={(e) => setMission(e.target.value)}
+                className="w-full bg-black/20 border border-slate-600 rounded p-3 text-sm focus:border-blue-500 outline-none resize-none h-24 mb-3"
+                placeholder={t.missionPlaceholder}
+              />
 
-                   {/* Plain Language Toggle */}
-                   <div 
-                      onClick={() => setEnablePlain(!enablePlain)}
-                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${enablePlain ? 'bg-amber-900/40 border-amber-500' : 'bg-black/20 border-slate-700 hover:bg-slate-800'}`}
-                   >
-                      <div className={`w-10 h-6 rounded-full p-1 transition-colors ${enablePlain ? 'bg-amber-500' : 'bg-slate-600'}`}>
-                         <div className={`w-4 h-4 bg-white rounded-full transition-transform ${enablePlain ? 'translate-x-4' : 'translate-x-0'}`} />
-                      </div>
-                      <div className="flex-1">
-                         <div className={`text-sm font-bold flex items-center gap-2 ${enablePlain ? 'text-amber-300' : 'text-slate-400'}`}>
-                            <Coffee className="w-4 h-4" />
-                            {t.enablePlain}
-                         </div>
-                         <div className="text-xs text-slate-500 mt-0.5 leading-tight opacity-80">
-                            {t.enablePlainDesc}
-                         </div>
-                      </div>
-                   </div>
-               </div>
+              <div className="grid grid-cols-1 gap-2">
+                {/* SRE Toggle */}
+                <div
+                  onClick={() => setEnableSRE(!enableSRE)}
+                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${enableSRE ? 'bg-indigo-900/40 border-indigo-500' : 'bg-black/20 border-slate-700 hover:bg-slate-800'}`}
+                >
+                  <div className={`w-10 h-6 rounded-full p-1 transition-colors ${enableSRE ? 'bg-indigo-500' : 'bg-slate-600'}`}>
+                    <div className={`w-4 h-4 bg-white rounded-full transition-transform ${enableSRE ? 'translate-x-4' : 'translate-x-0'}`} />
+                  </div>
+                  <div className="flex-1">
+                    <div className={`text-sm font-bold flex items-center gap-2 ${enableSRE ? 'text-indigo-300' : 'text-slate-400'}`}>
+                      <Activity className="w-4 h-4" />
+                      {t.enableSRE}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5 leading-tight opacity-80">
+                      {t.enableSREDesc}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Plain Language Toggle */}
+                <div
+                  onClick={() => setEnablePlain(!enablePlain)}
+                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${enablePlain ? 'bg-amber-900/40 border-amber-500' : 'bg-black/20 border-slate-700 hover:bg-slate-800'}`}
+                >
+                  <div className={`w-10 h-6 rounded-full p-1 transition-colors ${enablePlain ? 'bg-amber-500' : 'bg-slate-600'}`}>
+                    <div className={`w-4 h-4 bg-white rounded-full transition-transform ${enablePlain ? 'translate-x-4' : 'translate-x-0'}`} />
+                  </div>
+                  <div className="flex-1">
+                    <div className={`text-sm font-bold flex items-center gap-2 ${enablePlain ? 'text-amber-300' : 'text-slate-400'}`}>
+                      <Coffee className="w-4 h-4" />
+                      {t.enablePlain}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5 leading-tight opacity-80">
+                      {t.enablePlainDesc}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </section>
-            <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-                <RosterGroup title={t.sectionCore} list={coreTeam} setList={setCoreTeam} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
-                <RosterGroup title={t.sectionUser} list={users} setList={setUsers} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
-                <RosterGroup title={t.sectionJudge} list={judges} setList={setJudges} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+            <div className="space-y-4">
+              <RosterGroup title={t.sectionCore} list={coreTeam} setList={setCoreTeam} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+              <RosterGroup title={t.sectionUser} list={users} setList={setUsers} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+              <RosterGroup title={t.sectionJudge} list={judges} setList={setJudges} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
             </div>
           </div>
 
           {/* Middle: Simulation */}
           <div className="lg:col-span-4 space-y-6">
-             <section className={`${currentTheme.cardBg} rounded-xl p-5 border ${currentTheme.border} h-full flex flex-col`}>
-                <div className="mb-4">
-                    <h2 className="text-lg font-semibold flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-yellow-400" />
-                        {t.simulationTitle}
-                    </h2>
-                    <p className="text-xs text-slate-400 mt-1">{t.simulationDesc}</p>
-                </div>
-                
-                {/* Simulation Controls */}
-                <div className="space-y-4 mb-6 bg-black/20 p-4 rounded-lg border border-slate-700/50">
-                    <div>
-                        <div className="flex justify-between text-sm mb-1">
-                            <span className="flex items-center gap-1.5 font-medium text-slate-300">
-                                {t.riskLevel}
-                            </span>
-                            <span className={proposalRisk > 0.7 ? 'text-red-400 font-bold' : 'text-green-400 font-bold'}>{proposalRisk}</span>
-                        </div>
-                        <input 
-                            type="range" min="0" max="1" step="0.1" 
-                            value={proposalRisk}
-                            onChange={(e) => setProposalRisk(Number(e.target.value))}
-                            className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
-                        />
-                         <div className="flex items-start gap-2 mt-2 text-xs text-slate-500 bg-black/30 p-2 rounded">
-                            <Info className="w-3 h-3 mt-0.5 shrink-0" />
-                            {t.riskHelp}
-                        </div>
-                    </div>
-                    <div>
-                        <span className="text-sm block mb-2 font-medium text-slate-300">{t.proposalTags}</span>
-                        <div className="flex flex-wrap gap-2">
-                            {TAG_DEFINITIONS.map(tagDef => (
-                                <button 
-                                    key={tagDef.id} 
-                                    onClick={() => toggleTag(tagDef.id)} 
-                                    className={`px-2 py-1 text-xs rounded border transition-all ${proposalTags.includes(tagDef.id) ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-400 hover:border-slate-500'}`}
-                                >
-                                    {lang === 'zh' ? tagDef.labelZh : tagDef.labelEn}
-                                </button>
-                            ))}
-                        </div>
-                        <div className="flex items-start gap-2 mt-2 text-xs text-slate-500 bg-black/30 p-2 rounded">
-                            <Info className="w-3 h-3 mt-0.5 shrink-0" />
-                            {t.tagsHelp}
-                        </div>
-                    </div>
-                </div>
+            <section className={`${currentTheme.cardBg} rounded-xl p-5 border ${currentTheme.border} h-full flex flex-col`}>
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-yellow-400" />
+                  {t.simulationTitle}
+                </h2>
+                <p className="text-xs text-slate-400 mt-1">{t.simulationDesc}</p>
+              </div>
 
-                {/* Simulation Results */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3">
-                    <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-bold text-slate-300">{t.agentReactions}</span>
-                        <span className={`text-sm font-bold px-2 py-0.5 rounded ${simulationResults.passed ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'}`}>
-                            Score: {simulationResults.totalScore.toFixed(1)}
-                        </span>
-                    </div>
-                    
-                    <div className="mb-3 text-xs text-slate-500 flex items-start gap-2 bg-black/30 p-2 rounded">
-                        <Info className="w-3 h-3 mt-0.5 shrink-0" />
-                        {t.reactionsHelp}
-                    </div>
-
-                    {simulationResults.results.map(r => (
-                        <div key={r.agentId} className={`p-3 rounded border text-sm flex gap-3 ${r.weightedScore >= 0 ? 'border-slate-700 bg-slate-800/50' : 'border-red-900/50 bg-red-900/10'}`}>
-                            <div className="text-xl pt-0.5">{r.icon}</div>
-                            <div className="flex-1">
-                                <div className="flex justify-between items-center">
-                                    <span className="font-bold flex items-center gap-1.5">
-                                        {r.name}
-                                        <span className="text-[10px] font-normal opacity-50 bg-black/30 px-1.5 py-0.5 rounded border border-white/10">{r.role}</span>
-                                    </span>
-                                    <span className={r.weightedScore >= 0 ? 'text-green-400 font-mono' : 'text-red-400 font-mono'}>{r.weightedScore > 0 ? '+' : ''}{r.weightedScore}</span>
-                                </div>
-                                <div className="mt-1 space-y-1">
-                                    {r.reasons.length > 0 ? r.reasons.map((reason, idx) => (
-                                        <div key={idx} className="text-xs opacity-80 flex items-center gap-1.5">
-                                            {reason.includes('RED FLAG') || reason.includes('嚴重紅旗') ? <AlertTriangle className="w-3 h-3 text-red-500" /> : <div className="w-3 h-0.5 bg-slate-600 rounded-full" />}
-                                            {reason}
-                                        </div>
-                                    )) : <span className="text-xs opacity-40 italic">...</span>}
-                                </div>
-                            </div>
-                        </div>
+              {/* Simulation Controls */}
+              <div className="space-y-4 mb-6 bg-black/20 p-4 rounded-lg border border-slate-700/50">
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="flex items-center gap-1.5 font-medium text-slate-300">
+                      {t.riskLevel}
+                    </span>
+                    <span className={proposalRisk > 0.7 ? 'text-red-400 font-bold' : 'text-green-400 font-bold'}>{proposalRisk}</span>
+                  </div>
+                  <input
+                    type="range" min="0" max="1" step="0.1"
+                    value={proposalRisk}
+                    onChange={(e) => setProposalRisk(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <div className="flex items-start gap-2 mt-2 text-xs text-slate-500 bg-black/30 p-2 rounded">
+                    <Info className="w-3 h-3 mt-0.5 shrink-0" />
+                    {t.riskHelp}
+                  </div>
+                </div>
+                <div>
+                  <span className="text-sm block mb-2 font-medium text-slate-300">{t.proposalTags}</span>
+                  <div className="flex flex-wrap gap-2">
+                    {TAG_DEFINITIONS.map(tagDef => (
+                      <button
+                        key={tagDef.id}
+                        onClick={() => toggleTag(tagDef.id)}
+                        className={`px-2 py-1 text-xs rounded border transition-all ${proposalTags.includes(tagDef.id) ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-400 hover:border-slate-500'}`}
+                      >
+                        {lang === 'zh' ? tagDef.labelZh : tagDef.labelEn}
+                      </button>
                     ))}
+                  </div>
+                  <div className="flex items-start gap-2 mt-2 text-xs text-slate-500 bg-black/30 p-2 rounded">
+                    <Info className="w-3 h-3 mt-0.5 shrink-0" />
+                    {t.tagsHelp}
+                  </div>
                 </div>
-             </section>
+              </div>
+
+              {/* Simulation Results */}
+              <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-bold text-slate-300">{t.agentReactions}</span>
+                  <span className={`text-sm font-bold px-2 py-0.5 rounded ${simulationResults.passed ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'}`}>
+                    Score: {simulationResults.totalScore.toFixed(1)}
+                  </span>
+                </div>
+
+                <div className="mb-3 text-xs text-slate-500 flex items-start gap-2 bg-black/30 p-2 rounded">
+                  <Info className="w-3 h-3 mt-0.5 shrink-0" />
+                  {t.reactionsHelp}
+                </div>
+
+                {simulationResults.results.map(r => (
+                  <div key={r.agentId} className={`p-3 rounded border text-sm flex gap-3 ${r.weightedScore >= 0 ? 'border-slate-700 bg-slate-800/50' : 'border-red-900/50 bg-red-900/10'}`}>
+                    <div className="text-xl pt-0.5">{r.icon}</div>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-bold flex items-center gap-1.5">
+                          {r.name}
+                          <span className="text-[10px] font-normal opacity-50 bg-black/30 px-1.5 py-0.5 rounded border border-white/10">{r.role}</span>
+                        </span>
+                        <span className={r.weightedScore >= 0 ? 'text-green-400 font-mono' : 'text-red-400 font-mono'}>{r.weightedScore > 0 ? '+' : ''}{r.weightedScore}</span>
+                      </div>
+                      <div className="mt-1 space-y-1">
+                        {r.reasons.length > 0 ? r.reasons.map((reason, idx) => (
+                          <div key={idx} className="text-xs opacity-80 flex items-center gap-1.5">
+                            {reason.includes('RED FLAG') || reason.includes('嚴重紅旗') ? <AlertTriangle className="w-3 h-3 text-red-500" /> : <div className="w-3 h-0.5 bg-slate-600 rounded-full" />}
+                            {reason}
+                          </div>
+                        )) : <span className="text-xs opacity-40 italic">...</span>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
           {/* Right: Output (Clean Version) */}
           <div className="lg:col-span-3 space-y-4">
-             <div className={`${currentTheme.cardBg} rounded-xl p-1 border ${currentTheme.border} shadow-xl flex flex-col h-full transition-all duration-300`}>
-                <div className="bg-black/20 p-3 border-b border-slate-700 flex justify-between items-center">
-                   <span className="text-xs font-mono uppercase flex gap-2 items-center">
-                      <Terminal className="w-3 h-3" /> {t.promptOutput}
-                   </span>
-                   {/* Toggle Visibility */}
-                   <button 
-                      onClick={() => setShowPromptDetails(!showPromptDetails)}
-                      className="text-[10px] flex items-center gap-1 text-slate-500 hover:text-white transition-colors"
-                   >
-                      {showPromptDetails ? <EyeOff className="w-3 h-3"/> : <Eye className="w-3 h-3"/>}
-                      {showPromptDetails ? t.hideDetails : t.viewDetails}
-                   </button>
-                </div>
+            <div className={`${currentTheme.cardBg} rounded-xl p-1 border ${currentTheme.border} shadow-xl flex flex-col max-h-[calc(100vh-200px)] transition-all duration-300`}>
+              <div className="bg-black/20 p-3 border-b border-slate-700 flex justify-between items-center">
+                <span className="text-xs font-mono uppercase flex gap-2 items-center">
+                  <Terminal className="w-3 h-3" /> {t.promptOutput}
+                </span>
+                {/* Toggle Visibility */}
+                <button
+                  onClick={() => setShowPromptDetails(!showPromptDetails)}
+                  className="text-[10px] flex items-center gap-1 text-slate-500 hover:text-white transition-colors"
+                >
+                  {showPromptDetails ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                  {showPromptDetails ? t.hideDetails : t.viewDetails}
+                </button>
+              </div>
 
-                {showPromptDetails ? (
-                  // Raw Text Area
-                  <textarea 
-                     className="flex-1 bg-black/40 p-4 font-mono text-xs resize-none focus:outline-none text-slate-300 custom-scrollbar"
-                     value={generatedPrompt}
-                     readOnly
-                  />
-                ) : (
-                  // Clean "Prompt Ready" UI
-                  <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4 bg-black/10 relative">
-                     <div className={`w-20 h-20 rounded-full flex items-center justify-center ${mode === 'auditor' ? 'bg-green-900/20 text-green-400 border border-green-800/50' : 'bg-blue-900/20 text-blue-400 border border-blue-800/50'}`}>
-                        <Zap className="w-10 h-10 animate-pulse" />
-                     </div>
-                     <div className="space-y-2">
-                        <h3 className="text-xl font-bold text-slate-200">{t.promptReady}</h3>
-                        <p className="text-sm text-slate-500 max-w-[200px] mx-auto leading-relaxed">
-                           {t.promptReadyDesc}
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-2 mt-4">
-                            {enableSRE && (
-                                <div className="inline-flex items-center gap-1 bg-indigo-900/50 border border-indigo-500/50 text-indigo-300 px-2 py-1 rounded text-xs animate-bounce">
-                                    <Activity className="w-3 h-3" />
-                                    {t.promptReadySRE}
-                                </div>
-                            )}
-                            {enablePlain && (
-                                <div className="inline-flex items-center gap-1 bg-amber-900/50 border border-amber-500/50 text-amber-300 px-2 py-1 rounded text-xs animate-bounce delay-100">
-                                    <Coffee className="w-3 h-3" />
-                                    {t.promptReadyPlain}
-                                </div>
-                            )}
-                        </div>
-                     </div>
+              {showPromptDetails ? (
+                // Raw Text Area
+                <textarea
+                  className="flex-1 bg-black/40 p-4 font-mono text-xs resize-none focus:outline-none text-slate-300 custom-scrollbar"
+                  value={generatedPrompt}
+                  readOnly
+                />
+              ) : (
+                // Clean "Prompt Ready" UI
+                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4 bg-black/10 relative">
+                  <div className={`w-20 h-20 rounded-full flex items-center justify-center ${mode === 'auditor' ? 'bg-green-900/20 text-green-400 border border-green-800/50' : 'bg-blue-900/20 text-blue-400 border border-blue-800/50'}`}>
+                    <Zap className="w-10 h-10 animate-pulse" />
                   </div>
-                )}
-                
-                <div className="p-4 border-t border-slate-700 bg-black/20">
-                   <button onClick={copyToClipboard} className={`w-full py-4 rounded-lg font-bold flex justify-center items-center gap-2 transition-all transform active:scale-95 shadow-lg ${copyFeedback ? 'bg-green-600' : currentTheme.button} text-white`}>
-                      {copyFeedback ? <><CheckCircle className="w-5 h-5" /> {t.copied}</> : <><Copy className="w-5 h-5" /> {t.copyPrompt}</>}
-                   </button>
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold text-slate-200">{t.promptReady}</h3>
+                    <p className="text-sm text-slate-500 max-w-[200px] mx-auto leading-relaxed">
+                      {t.promptReadyDesc}
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-2 mt-4">
+                      {enableSRE && (
+                        <div className="inline-flex items-center gap-1 bg-indigo-900/50 border border-indigo-500/50 text-indigo-300 px-2 py-1 rounded text-xs animate-bounce">
+                          <Activity className="w-3 h-3" />
+                          {t.promptReadySRE}
+                        </div>
+                      )}
+                      {enablePlain && (
+                        <div className="inline-flex items-center gap-1 bg-amber-900/50 border border-amber-500/50 text-amber-300 px-2 py-1 rounded text-xs animate-bounce delay-100">
+                          <Coffee className="w-3 h-3" />
+                          {t.promptReadyPlain}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-             </div>
+              )}
+
+              <div className="p-4 border-t border-slate-700 bg-black/20">
+                <button onClick={copyToClipboard} className={`w-full py-4 rounded-lg font-bold flex justify-center items-center gap-2 transition-all transform active:scale-95 shadow-lg ${copyFeedback ? 'bg-green-600' : currentTheme.button} text-white`}>
+                  {copyFeedback ? <><CheckCircle className="w-5 h-5" /> {t.copied}</> : <><Copy className="w-5 h-5" /> {t.copyPrompt}</>}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -900,74 +900,74 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
       {/* Manual Modal */}
       {showManual && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className={`w-full max-w-3xl ${currentTheme.cardBg} border ${currentTheme.border} rounded-2xl shadow-2xl max-h-[80vh] flex flex-col`}>
-                <div className="p-4 border-b border-slate-700 flex justify-between items-center">
-                    <h2 className="text-xl font-bold flex items-center gap-2 text-white">
-                        <HelpCircle className="w-6 h-6 text-blue-400" />
-                        {t.manualTitle}
-                    </h2>
-                    <button onClick={() => setShowManual(false)} className="text-slate-400 hover:text-white"><X className="w-6 h-6" /></button>
-                </div>
-                <div className="p-6 overflow-y-auto text-slate-300 space-y-6 custom-scrollbar leading-relaxed">
-                    {lang === 'zh' ? (
-                        <>
-                            <div>
-                                <h3 className="text-lg font-bold text-white mb-2">1. 核心概念</h3>
-                                <p>這不是普通的 Prompt 生成器。這是一個<strong>「多智能體決策引擎」</strong>。透過模擬 7 位專家、2 位用戶與 3 位評審的交互，幫您做出更全面的決策或代碼審查。</p>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                                    <strong className="text-blue-400">🔨 Builder 模式</strong>
-                                    <p className="text-sm mt-1">用於「創造」。開發新功能、寫文案、設計架構。團隊會專注於實作與創意。</p>
-                                </div>
-                                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                                    <strong className="text-green-400">🛡️ Auditor 模式</strong>
-                                    <p className="text-sm mt-1">用於「找碴」。代碼審查、資安健檢。團隊會進入「有罪推定」模式，嚴格檢查漏洞。</p>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-white mb-2">2. 使用流程</h3>
-                                <ol className="list-decimal list-inside space-y-2 text-sm">
-                                    <li>在左側<strong>「定義任務」</strong>輸入您想做的事（或貼上代碼片段）。</li>
-                                    <li>利用中間的<strong>「提案模擬」</strong>預覽團隊反應。如果分數是紅的，代表您的想法可能會被否決。</li>
-                                    <li>(選用) 啟用<strong>「SRE 監控」</strong>或<strong>「白話文報告」</strong>。</li>
-                                    <li>點擊右下角的 <strong className="bg-blue-600 px-2 py-0.5 rounded text-white text-xs">複製指令</strong>。</li>
-                                    <li>打開您的 AI (ChatGPT/Gemini)，貼上指令。</li>
-                                    <li><strong>(關鍵)</strong> 啟動後，再將您的檔案或資料夾拖曳給 AI 進行分析。</li>
-                                </ol>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div>
-                                <h3 className="text-lg font-bold text-white mb-2">1. Core Concept</h3>
-                                <p>This is a <strong>Multi-Agent Decision Engine</strong>. It simulates 7 experts, 2 users, and 3 judges to help you make better software decisions or audits.</p>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                                    <strong className="text-blue-400">🔨 Builder Mode</strong>
-                                    <p className="text-sm mt-1">For creation. New features, architecture, UI design.</p>
-                                </div>
-                                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                                    <strong className="text-green-400">🛡️ Auditor Mode</strong>
-                                    <p className="text-sm mt-1">For auditing. Code review, security checks. Strict "guilty until proven innocent" mindset.</p>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-white mb-2">2. How to Use</h3>
-                                <ol className="list-decimal list-inside space-y-2 text-sm">
-                                    <li>Enter your task in <strong>"Define Mission"</strong>.</li>
-                                    <li>Use <strong>"Pre-Simulation"</strong> to see how agents might vote.</li>
-                                    <li>(Optional) Toggle <strong>"SRE Schema"</strong> or <strong>"Plain Language Report"</strong>.</li>
-                                    <li>Click <strong className="bg-blue-600 px-2 py-0.5 rounded text-white text-xs">Copy Prompt</strong>.</li>
-                                    <li>Paste it into your AI chat (ChatGPT/Gemini).</li>
-                                    <li><strong>(Important)</strong> After starting, drag & drop your files to the AI for analysis.</li>
-                                </ol>
-                            </div>
-                        </>
-                    )}
-                </div>
+          <div className={`w-full max-w-3xl ${currentTheme.cardBg} border ${currentTheme.border} rounded-2xl shadow-2xl max-h-[80vh] flex flex-col`}>
+            <div className="p-4 border-b border-slate-700 flex justify-between items-center">
+              <h2 className="text-xl font-bold flex items-center gap-2 text-white">
+                <HelpCircle className="w-6 h-6 text-blue-400" />
+                {t.manualTitle}
+              </h2>
+              <button onClick={() => setShowManual(false)} className="text-slate-400 hover:text-white"><X className="w-6 h-6" /></button>
             </div>
+            <div className="p-6 overflow-y-auto text-slate-300 space-y-6 custom-scrollbar leading-relaxed">
+              {lang === 'zh' ? (
+                <>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">1. 核心概念</h3>
+                    <p>這不是普通的 Prompt 生成器。這是一個<strong>「多智能體決策引擎」</strong>。透過模擬 7 位專家、2 位用戶與 3 位評審的交互，幫您做出更全面的決策或代碼審查。</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                      <strong className="text-blue-400">🔨 Builder 模式</strong>
+                      <p className="text-sm mt-1">用於「創造」。開發新功能、寫文案、設計架構。團隊會專注於實作與創意。</p>
+                    </div>
+                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                      <strong className="text-green-400">🛡️ Auditor 模式</strong>
+                      <p className="text-sm mt-1">用於「找碴」。代碼審查、資安健檢。團隊會進入「有罪推定」模式，嚴格檢查漏洞。</p>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">2. 使用流程</h3>
+                    <ol className="list-decimal list-inside space-y-2 text-sm">
+                      <li>在左側<strong>「定義任務」</strong>輸入您想做的事（或貼上代碼片段）。</li>
+                      <li>利用中間的<strong>「提案模擬」</strong>預覽團隊反應。如果分數是紅的，代表您的想法可能會被否決。</li>
+                      <li>(選用) 啟用<strong>「SRE 監控」</strong>或<strong>「白話文報告」</strong>。</li>
+                      <li>點擊右下角的 <strong className="bg-blue-600 px-2 py-0.5 rounded text-white text-xs">複製指令</strong>。</li>
+                      <li>打開您的 AI (ChatGPT/Gemini)，貼上指令。</li>
+                      <li><strong>(關鍵)</strong> 啟動後，再將您的檔案或資料夾拖曳給 AI 進行分析。</li>
+                    </ol>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">1. Core Concept</h3>
+                    <p>This is a <strong>Multi-Agent Decision Engine</strong>. It simulates 7 experts, 2 users, and 3 judges to help you make better software decisions or audits.</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                      <strong className="text-blue-400">🔨 Builder Mode</strong>
+                      <p className="text-sm mt-1">For creation. New features, architecture, UI design.</p>
+                    </div>
+                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                      <strong className="text-green-400">🛡️ Auditor Mode</strong>
+                      <p className="text-sm mt-1">For auditing. Code review, security checks. Strict "guilty until proven innocent" mindset.</p>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">2. How to Use</h3>
+                    <ol className="list-decimal list-inside space-y-2 text-sm">
+                      <li>Enter your task in <strong>"Define Mission"</strong>.</li>
+                      <li>Use <strong>"Pre-Simulation"</strong> to see how agents might vote.</li>
+                      <li>(Optional) Toggle <strong>"SRE Schema"</strong> or <strong>"Plain Language Report"</strong>.</li>
+                      <li>Click <strong className="bg-blue-600 px-2 py-0.5 rounded text-white text-xs">Copy Prompt</strong>.</li>
+                      <li>Paste it into your AI chat (ChatGPT/Gemini).</li>
+                      <li><strong>(Important)</strong> After starting, drag & drop your files to the AI for analysis.</li>
+                    </ol>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -976,28 +976,28 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
 
 // Sub-component
 const RosterGroup = ({ title, list, toggle, theme, t }) => (
-    <div className={`border ${theme.border} rounded-lg overflow-hidden`}>
-        <div className="bg-black/20 px-3 py-2 text-xs font-bold uppercase text-slate-500 flex justify-between">
-            <span>{title}</span>
-            <span>{list.filter(m => m.active).length} {t.active}</span>
-        </div>
-        <div>
-            {list.map(m => (
-                <div key={m.id} onClick={() => toggle(list, () => {}, m.id)} className={`px-3 py-2 border-b ${theme.border} last:border-0 flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-colors ${!m.active && 'opacity-40 grayscale'}`}>
-                    <div className={`w-2 h-2 rounded-full ${m.active ? 'bg-green-500' : 'bg-slate-600'}`} />
-                    <span className="text-lg">{m.icon}</span>
-                    <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium flex items-center gap-2">
-                             {m.name}
-                        </div>
-                        <div className="text-xs text-slate-400 opacity-80 truncate" title={m.desc}>
-                           {m.desc}
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
+  <div className={`border ${theme.border} rounded-lg overflow-hidden`}>
+    <div className="bg-black/20 px-3 py-2 text-xs font-bold uppercase text-slate-500 flex justify-between">
+      <span>{title}</span>
+      <span>{list.filter(m => m.active).length} {t.active}</span>
     </div>
+    <div>
+      {list.map(m => (
+        <div key={m.id} onClick={() => toggle(list, () => { }, m.id)} className={`px-3 py-2 border-b ${theme.border} last:border-0 flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-colors ${!m.active && 'opacity-40 grayscale'}`}>
+          <div className={`w-2 h-2 rounded-full ${m.active ? 'bg-green-500' : 'bg-slate-600'}`} />
+          <span className="text-lg">{m.icon}</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium flex items-center gap-2">
+              {m.name}
+            </div>
+            <div className="text-xs text-slate-400 opacity-80 truncate" title={m.desc}>
+              {m.desc}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
 );
 
 export default VirtualTeamBuilder;
