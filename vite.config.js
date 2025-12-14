@@ -8,6 +8,6 @@ export default defineConfig({
         outDir: 'dist',
         assetsDir: 'assets',
         sourcemap: false,
-        minify: 'terser',
+        // Using default esbuild minifier (faster and no additional deps)
     },
 })
