@@ -11,157 +11,157 @@ import {
 
 const TRANSLATIONS = {
   zh: {
-    appTitle: "VTCC: AI 團隊決策系統",
-    appSubtitle: "多智能體決策引擎 v3.6",
-    builderMode: "開發模式",
-    auditorMode: "審計模式",
-    modeBuilderDesc: "Builder",
+    appTitle: "VTCC: AI 虛擬團隊指揮中心",
+    appSubtitle: "萬用型多智能體決策引擎 v5.0",
+    builderMode: "創新/執行模式",
+    auditorMode: "風險/審計模式",
+    modeBuilderDesc: "Creator",
     modeAuditorDesc: "Auditor",
     reset: "重置設定",
     missionTitle: "1. 定義任務 (Mission)",
-    missionPlaceholder: "例：分析電商/代碼/檔案系統的效能瓶頸",
-    enableSRE: "SRE 監控標準",
-    enableSREDesc: "注入監控儀表板 Schema (KPIs, Alerts)。",
+    missionPlaceholder: "例：是否應該將實體咖啡廳擴展到電子商務領域？（任何生活、商業或技術問題）",
+    enableDynamicTeam: "AI 動態組建團隊",
+    enableDynamicTeamDesc: "AI 將根據任務自動招募 7 位最合適的頂級專家角色，取代現有預設團隊。",
+    enableSRE: "SRE 維運標準",
+    enableSREDesc: "注入監控指標 (KPIs, Alerts) 以確保執行後的成功與穩定性。",
     enablePlain: "白話文結案報告",
-    enablePlainDesc: "新增「Phase 5」，用通俗語言向真人老闆解釋結論與商業價值。",
+    enablePlainDesc: "新增「Phase 5」，由行銷經理向非專業背景的老闆解釋核心價值與結論。",
     simulationTitle: "2. 提案模擬 (Pre-Simulation)",
     simulationDesc: "調整參數，預覽團隊的決策反應。",
     riskLevel: "風險值 (Risk Level)",
     riskHelp: "設定此提案的潛在風險。數值越高，越容易觸發保守派角色（如 QA、資安專家）的反對或否決。",
     proposalTags: "提案標籤 (Tags)",
-    tagsHelp: "選擇此提案包含的屬性。這些標籤會觸發不同角色的「偏好（加分）」或「厭惡（扣分）」。",
+    tagsHelp: "選擇此提案包含的屬性。這些標籤會觸發不同角色的「偏好」或「厭惡」。",
     agentReactions: "團隊反應 (Agent Reactions)",
-    reactionsHelp: "綠色代表支持，紅色代表反對。若出現「紅旗 (Red Flag)」，該角色將會強烈反對。",
+    reactionsHelp: "綠色代表支持，紅色代表反對。此處反應基於「預設團隊」，若啟用動態團隊則以 AI 最終生成為準。",
     promptOutput: "系統指令 (System Prompt)",
     promptReady: "指令已生成",
-    promptReadyDesc: "虛擬團隊配置完畢，包含 7 位專家與完整決策邏輯。",
+    promptReadyDesc: "虛擬指揮中心協議已就緒。包含完整的多階段決策邏輯。",
     promptReadySRE: "SRE 監控",
     promptReadyPlain: "白話文報告",
-    viewDetails: "檢視內容",
-    hideDetails: "隱藏內容",
+    promptReadyDynamic: "動態組隊",
+    viewDetails: "檢視細節",
+    hideDetails: "隱藏細節",
     copyPrompt: "複製指令 (Copy Prompt)",
     copied: "已複製！",
     active: "啟用中",
     addAgent: "新增成員",
-    sectionCore: "核心開發團隊",
-    sectionUser: "模擬使用者",
-    sectionJudge: "評審團",
-    manualTitle: "使用說明書",
+    sectionCore: "核心執行團隊 (預設)",
+    sectionUser: "模擬使用者 (預設)",
+    sectionJudge: "決策審議團 (預設)",
+    manualTitle: "VTCC 使用說明書",
     manualClose: "關閉",
-    switchLangPrompt: "切換語言將重置所有角色設定為預設值，確定嗎？",
+    switchLangPrompt: "切換語言將重置所有設定為預設值，確定嗎？",
     defaultMissionBuilder: "",
-    defaultMissionAuditor: "審查使用者提供的 GitHub 專案代碼，指出架構漏洞、資安風險，並提出重構建議。",
+    defaultMissionAuditor: "審查目前提供的資訊、文件或代碼，指出潛在風險並提出改進建議。",
 
     // Agent Roles for UI
     rolePM: "PM 專案經理",
-    roleBackend: "後端主管",
-    roleFrontend: "前端工程師",
-    roleDesigner: "設計總監",
-    roleMarketing: "行銷/翻譯",
-    roleQA: "QA 測試員",
-    roleAI: "AI 運算核心",
-    roleUserSimple: "小白用戶",
-    roleUserHard: "硬核玩家",
-    roleInvestor: "投資人",
-    roleYouTuber: "評測員",
-    roleSec: "資安專家"
+    roleBackend: "架構工程師",
+    roleFrontend: "介面設計師",
+    roleDesigner: "美學總監",
+    roleMarketing: "行銷公關",
+    roleQA: "品質控管",
+    roleAI: "AI 邏輯核心",
+    roleUserSimple: "普通用戶",
+    roleUserHard: "專家用戶",
+    roleInvestor: "資本投資人",
+    roleYouTuber: "媒體評論員",
+    roleSec: "風險管理家"
   },
   en: {
-    appTitle: "VTCC: AI Team Decision System",
-    appSubtitle: "Multi-Agent Decision Engine v3.6",
-    builderMode: "Builder Mode",
+    appTitle: "VTCC: AI Virtual Command Center",
+    appSubtitle: "Universal Multi-Agent Decision Engine v5.0",
+    builderMode: "Creator Mode",
     auditorMode: "Auditor Mode",
-    modeBuilderDesc: "Builder",
+    modeBuilderDesc: "Creator",
     modeAuditorDesc: "Auditor",
     reset: "Reset",
     missionTitle: "1. Define Mission",
-    missionPlaceholder: "e.g., Analyze performance bottlenecks in e-commerce/code/file systems",
+    missionPlaceholder: "e.g., Should we expand our offline coffee chain into e-commerce? (Any domain)",
+    enableDynamicTeam: "AI Dynamic Recruitment",
+    enableDynamicTeamDesc: "AI will automatically recruit 7 most relevant top experts based on your mission.",
     enableSRE: "SRE Protocols",
-    enableSREDesc: "Inject Monitoring Dashboard Schema (KPIs, Alerts).",
+    enableSREDesc: "Inject monitoring metrics (KPIs, Alerts) to ensure success and stability.",
     enablePlain: "Plain Language Report",
-    enablePlainDesc: "Add 'Phase 5' for a non-technical summary explaining value & risks.",
+    enablePlainDesc: "Add 'Phase 5' for a non-technical summary explaining value & risks to the boss.",
     simulationTitle: "2. Pre-Simulation",
     simulationDesc: "Adjust parameters to preview agent reactions.",
     riskLevel: "Risk Level",
-    riskHelp: "High risk triggers VETO from conservative agents (QA, Sec) but may attract risk-takers.",
+    riskHelp: "High risk triggers VETO from conservative agents but might attract risk-takers.",
     proposalTags: "Proposal Tags",
-    tagsHelp: "Select attributes. These trigger agent 'Preferences' (Bonus) or 'Avoids' (Penalty).",
+    tagsHelp: "Select attributes. These trigger agent 'Preferences' or 'Avoids'.",
     agentReactions: "Agent Reactions",
-    reactionsHelp: "Green = Support, Red = Object. 'Red Flags' indicate strong opposition or VETO.",
+    reactionsHelp: "Green = Support, Red = Object. Note: This assumes default team unless Dynamic is on.",
     promptOutput: "System Prompt",
     promptReady: "Prompt Ready",
-    promptReadyDesc: "Virtual team protocols loaded. Includes 7 experts and full decision logic.",
+    promptReadyDesc: "Command center protocols loaded. Includes multi-phase decision logic.",
     promptReadySRE: "SRE Active",
     promptReadyPlain: "Plain Rpt",
+    promptReadyDynamic: "AI Recruited",
     viewDetails: "View Code",
     hideDetails: "Hide Code",
     copyPrompt: "Copy Prompt",
     copied: "Copied!",
     active: "Active",
     addAgent: "Add Agent",
-    sectionCore: "Core Team",
-    sectionUser: "User Group",
-    sectionJudge: "The Tribunal",
-    manualTitle: "User Manual",
+    sectionCore: "Core Team (Default)",
+    sectionUser: "User Group (Default)",
+    sectionJudge: "The Tribunal (Default)",
+    manualTitle: "VTCC User Manual",
     manualClose: "Close",
     switchLangPrompt: "Switching language will reset all roles to defaults. Continue?",
     defaultMissionBuilder: "",
-    defaultMissionAuditor: "Audit the provided GitHub repo for security vulnerabilities and architectural flaws.",
+    defaultMissionAuditor: "Audit the provided information/data for risks and provide improvement suggestions.",
 
     // Agent Roles for UI
     rolePM: "Project Manager",
-    roleBackend: "Backend Lead",
-    roleFrontend: "Frontend Dev",
+    roleBackend: "Sys Architect",
+    roleFrontend: "Interface Dev",
     roleDesigner: "Design Lead",
-    roleMarketing: "Marketing/Translator",
-    roleQA: "QA Tester",
-    roleAI: "AI Core",
+    roleMarketing: "PR & Marketing",
+    roleQA: "Quality Assurance",
+    roleAI: "AI Logic Core",
     roleUserSimple: "Casual User",
     roleUserHard: "Power User",
     roleInvestor: "VC Investor",
-    roleYouTuber: "Tech Reviewer",
-    roleSec: "Security Expert"
+    roleYouTuber: "Media Reviewer",
+    roleSec: "Risk Manager"
   }
 };
 
 // Tag Definitions with Bilingual Labels
 const TAG_DEFINITIONS = [
   { id: 'stability', labelZh: 'Stability / 穩定性', labelEn: 'Stability' },
-  { id: 'performance', labelZh: 'Performance / 效能', labelEn: 'Performance' },
-  { id: 'ux', labelZh: 'UX / 使用者體驗', labelEn: 'UX' },
-  { id: 'security_risk', labelZh: 'Security Risk / 資安風險', labelEn: 'Security Risk' },
-  { id: 'technical_debt', labelZh: 'Tech Debt / 技術債', labelEn: 'Technical Debt' },
-  { id: 'viral', labelZh: 'Viral / 病毒式傳播', labelEn: 'Viral Growth' },
-  { id: 'feature', labelZh: 'New Feature / 新功能', labelEn: 'New Feature' },
-  { id: 'legacy_browser', labelZh: 'Legacy Support / 舊版支援', labelEn: 'Legacy Support' },
-  { id: 'complex', labelZh: 'Complex / 高複雜度', labelEn: 'High Complexity' }
+  { id: 'performance', labelZh: 'Efficiency / 效率', labelEn: 'Efficiency' },
+  { id: 'ux', labelZh: 'Experience / 體驗', labelEn: 'Experience' },
+  { id: 'security_risk', labelZh: 'Security / 安全風險', labelEn: 'Security' },
+  { id: 'cost', labelZh: 'Budget / 預算成本', labelEn: 'Budget & Cost' },
+  { id: 'viral', labelZh: 'Growth / 成長與傳播', labelEn: 'Viral Growth' },
+  { id: 'feature', labelZh: 'Innovation / 創新點', labelEn: 'Innovation' },
+  { id: 'legal', labelZh: 'Legal / 法律合規', labelEn: 'Legal/Ethics' },
+  { id: 'timing', labelZh: 'Timing / 市場時機', labelEn: 'Market Timing' }
 ];
 
 // Monitoring Schema Definition
 const MONITORING_SCHEMA_TEMPLATE = {
   meta: {
     dashboardId: 'VTCC-MON-001',
-    description: 'Post-GO execution monitoring for stability & UX',
-    refreshIntervalSec: 30
+    description: 'Post-Execution monitoring for success & risk',
+    refreshIntervalSec: 60
   },
   globalKPIs: [
-    { id: 'error_rate', label: 'Error Rate', type: 'percentage', threshold: { warning: 1.5, critical: 3 }, owner: 'Tess' },
-    { id: 'crash_rate', label: 'Crash Rate', type: 'percentage', threshold: { warning: 0.5, critical: 1 }, owner: 'Omega' },
-    { id: 'task_completion', label: 'Task Completion Rate', type: 'percentage', threshold: { warning: 85, critical: 70 }, owner: 'Steve' }
-  ],
-  uxMetrics: [
-    { id: 'time_to_complete', label: 'Time To Complete (sec)', type: 'duration', threshold: { warning: 10, critical: 15 }, owner: 'Leo' },
-    { id: 'interaction_steps', label: 'Interaction Steps', type: 'count', threshold: { warning: 4, critical: 6 }, owner: 'Ivy' }
-  ],
-  businessMetrics: [
-    { id: 'retention_d7', label: 'D7 Retention', type: 'percentage', threshold: { warning: 25, critical: 15 }, owner: 'VC Investor' }
+    { id: 'success_rate', label: 'Success Rate', type: 'percentage', threshold: { warning: 95, critical: 80 } },
+    { id: 'user_sentiment', label: 'User Sentiment', type: 'score', threshold: { warning: 4, critical: 2 } },
+    { id: 'roi', label: 'ROI Forecast', type: 'ratio', threshold: { warning: 1.2, critical: 1.0 } }
   ],
   alerts: {
     vetoConditions: [
-      { metricId: 'crash_rate', operator: '>=', value: 1, action: 'AUTO_ROLLBACK', authority: 'Sec Expert' }
+      { metricId: 'risk_incident', operator: '>', value: 0, action: 'EMERGENCY_HALT' }
     ]
   }
 };
+
 
 // ================================
 // 2. AI Agent Schema
@@ -359,6 +359,7 @@ const VirtualTeamBuilder = () => {
   // Proposal Simulation
   const [proposalRisk, setProposalRisk] = useState(0.5);
   const [proposalTags, setProposalTags] = useState(['stability', 'ux']);
+  const [enableDynamicTeam, setEnableDynamicTeam] = useState(false); // Dynamic Team Toggle
   const [enableSRE, setEnableSRE] = useState(false); // SRE Toggle State
   const [enablePlain, setEnablePlain] = useState(false); // Plain Language Report Toggle
 
@@ -418,6 +419,7 @@ const VirtualTeamBuilder = () => {
       setMode('builder');
       setEnableSRE(false);
       setEnablePlain(false);
+      setEnableDynamicTeam(false);
     }
   };
 
@@ -460,10 +462,7 @@ const VirtualTeamBuilder = () => {
   const generatePrompt = () => {
     const allActive = [...coreTeam, ...users, ...judges].filter(m => m.active);
 
-    // Determine language-specific headers
-    let systemHeader = mode === 'auditor'
-      ? `**[SYSTEM START: SECURITY_AUDIT_MODE]**`
-      : `**[SYSTEM START: VIRTUAL_SOFTWARE_COMPANY]**`;
+    const systemHeader = `**[SYSTEM START: AI_VIRTUAL_COMMAND_CENTER_v5]**`;
 
     const agentProfiles = allActive.map(m => {
       return `- ${m.icon} **${m.name}** (${m.role})
@@ -473,114 +472,118 @@ const VirtualTeamBuilder = () => {
   - **Desc**: ${m.desc}`;
     }).join('\n');
 
+    let dynamicTeamModule = '';
+    if (enableDynamicTeam) {
+      dynamicTeamModule = lang === 'zh' ? `
+### 🔄 Phase 0: 動態專家招募 (Dynamic Recruitment)
+**指令**：請忽略上述預設角色。基於當前任務的領域（如：法律、醫學、商業、科學、家庭），請自行定義 **7 位** 該領域最具權威的虛擬專家。
+- 每個專家需包含：姓名、頭銜、權限等級 (0-1.0)、風險容忍度、決策偏好、以及一段背景描述。
+- 接下來的 Phase 1-4 請使用這批新招募的專家進行決策。
+` : `
+### 🔄 Phase 0: Dynamic Recruitment
+**Instruction**: Ignore the default roles listed above. Based on the domain of the current mission (e.g., Legal, Medical, Business, Science, Domestic), please define **7 virtual experts** who are top authorities in this field.
+- Each expert must have: Name, Title, Authority (0-1.0), Risk Tolerance, Bias, and a background bio.
+- Use this newly recruited team for all subsequent phases (Phase 1-4).
+`;
+    }
+
     let additionalInstructions = '';
     if (enableSRE) {
       additionalInstructions += lang === 'zh' ? `
 ### 📊 監控與維運 (Monitoring & SRE)
-團隊已啟用 SRE 協議。請根據以下監控架構定義上線後的成功指標與自動回滾機制：
+團隊已啟用 SRE 協議。請根據以下監控架構定義對此任務執行後的「成功指標」與「自動預警機制」：
 \`\`\`json
 ${JSON.stringify(MONITORING_SCHEMA_TEMPLATE, null, 2)}
 \`\`\`
-**任務**：請在最終輸出中包含一個「SRE 儀表板」章節，列出針對此任務的關鍵 Metrics 與 Alert 條件。
+**任務**：在 Phase 4 或 5 中包含一個「即時監控儀表板定義」，列出此決策對應的關鍵 Metrics。
 ` : `
 ### 📊 Monitoring & SRE Schema
-SRE protocols active. Define post-launch success metrics and rollback rules using this schema:
+SRE protocols active. Define success metrics and alert rules using this schema:
 \`\`\`json
 ${JSON.stringify(MONITORING_SCHEMA_TEMPLATE, null, 2)}
 \`\`\`
-**Task**: Include an "SRE Dashboard" section in the final output, listing key Metrics and Alerts for this mission.
+**Task**: Include a "Monitoring Dashboard" section in the summary, listing key Metrics and Alerts for this mission.
 `;
     }
 
     if (enablePlain) {
       additionalInstructions += lang === 'zh' ? `
-### ☕ 白話文結案報告 (Plain Language Report)
-請追加 **Phase 5**，由 **Sam (行銷/翻譯)** 撰寫一份「給真人老闆看的結案報告」。
-- 🚫 **禁止技術術語**：不要講 API, JSON, React 等詞彙。
-- ✅ **專注於價值**：這對公司有什麼好處？幫用戶省了多少時間？
-- ✅ **風險提示**：用生活化的比喻解釋潛在風險 (例如：「這就像出門沒鎖門」)。
-- **語氣**：專業、簡潔、像是在電梯裡對 CEO 做的 30 秒報告。
+### ☕ 白話文/商業價值報告 (Plain Language & Value Report)
+請追加 **Phase 5**，由團隊中的 **行銷經理/首席溝通官** 撰寫一份「給真人老闆看的最終結案報告」。
+- 🚫 **禁止專業術語**：將複雜概念比喻化、生活化。
+- ✅ **專注於價值**：明確指出這項決策如何省錢、賺錢或降低風險。
+- ✅ **執行建議**：提供 1-2 個立即可以執行的 Action Items。
+- **語氣**：專業、具備說服力，像是頂級諮詢公司的執行摘要。
 ` : `
-### ☕ Plain Language Report
-Add **Phase 5**, written by **Sam (Marketing)** for the "Human Boss".
-- 🚫 **No Jargon**: Avoid API, JSON, React, etc.
-- ✅ **Focus on Value**: What's the business benefit? Time saved?
-- ✅ **Risk Metaphors**: Explain risks using real-world analogies (e.g., "Like leaving the front door unlocked").
-- **Tone**: Professional, concise, like a 30-second elevator pitch to the CEO.
+### ☕ Plain Language & Business Value Report
+Add **Phase 5**, written by the **PR/Marketing Lead** for the "Human Boss".
+- 🚫 **No Jargon**: Use real-world analogies.
+- ✅ **Focus on Value**: Clearly state ROI, time saved, or risks mitigated.
+- ✅ **Actionable**: Provide 1-2 immediate next steps.
+- **Tone**: Persuasive, professional, like an executive summary from a top-tier consultancy.
 `;
     }
 
     const promptInstructions = lang === 'zh' ? `
-請初始化「多智能體決策引擎」。
-目前會議輪次：**Meeting #${meetingRound}**
+請初始化「全領域多智能體決策引擎」。
 當前任務/提案：**${mission}**
 提案風險值 (0-1): **${proposalRisk}**
 提案標籤: **[${proposalTags.join(', ')}]**
 
 ---
+${enableDynamicTeam ? dynamicTeamModule : `### 🧠 預設智能體架構 (Agent Schema)\n${agentProfiles}`}
 
-### 🧠 智能體架構 (Agent Schema)
-每個角色必須依照其設定的「權重 (Authority)」、「風險容忍度」與「決策偏好 (Bias)」進行發言與投票。
-若提案觸發角色的 **RedFlags**，該角色應強烈反對或行使否決權。
-
-${agentProfiles}
 ${additionalInstructions}
 ---
 
 ### 🔄 決策模擬流程 (Simulation Protocol)
 
-#### **Phase 1: 智能體評估 (Evaluation)**
-- 每個角色針對任務進行分析。
-- **Omega (AI)** 提供數據支持或邏輯優化建議。
-- **Sam** 負責${mode === 'auditor' ? '將技術術語翻譯成白話文' : '包裝價值'}。
+#### **Phase 1: 團隊初步評估 (Evaluation)**
+- 每個成員從其專業角度進行深度分析。
 
-#### **Phase 2: 衝突與辯論 (Debate)**
-- 風險容忍度低的角色挑戰風險高的提案。
-- 追求速度的角色挑戰過度設計。
+#### **Phase 2: 衝突、質疑與對抗 (Debate)**
+- 低風險容忍度者挑戰高風險提案。
+- 重視價值者挑戰過度複雜的方案。
+- 成員之間必須有互動與火花。
 
-#### **Phase 3: 加權投票 (Voting)**
-- 模擬計算最終加權分數。
-- 通過標準：總加權分 > 0 且無 Authority=1.0 的角色行使否決權。
+#### **Phase 3: 加權投票與否決權 (Voting)**
+- 模擬計算加權得分。
+- 若有核心成員行使「一票否決」，需詳細說明理由。
 
-#### **Phase 4: 執行摘要 (Summary)**
-- PM Steve 總結決策 (GO / NO-GO) 並詢問人類老闆 (User)。
+#### **Phase 4: 執行摘要與 GO/NO-GO 建言 (Summary)**
+- 總結決策並給出明確建議。
 
-${enablePlain ? '#### **Phase 5: 白話文結案報告 (Plain Language)**\n- Sam 進行通俗化總結。' : ''}
-` : `
-Initialize "Multi-Agent Decision Engine".
-Meeting Round: **Meeting #${meetingRound}**
+${enablePlain ? '#### **Phase 5: 商業價值與白話文報告 (Strategic Report)**\n- 轉換為老闆聽得懂的戰略建議。' : ''}
+
+請直接開始 Phase 1 (若啟用了 Phase 0 則先執行組隊)。` : `
+Initialize "Universal Multi-Agent Decision Engine".
 Current Mission: **${mission}**
 Proposal Risk (0-1): **${proposalRisk}**
 Tags: **[${proposalTags.join(', ')}]**
 
 ---
+${enableDynamicTeam ? dynamicTeamModule : `### 🧠 Default Agent Schema\n${agentProfiles}`}
 
-### 🧠 Agent Schema
-Each agent must speak and vote according to their "Authority", "RiskTolerance", and "Bias".
-If RedFlags are triggered, the agent must VETO.
-
-${agentProfiles}
 ${additionalInstructions}
 ---
 
 ### 🔄 Protocol
 
-#### **Phase 1: Evaluation**
-- Agents analyze the mission.
-- **Omega (AI)** provides logic/data support.
-- **Sam** translates technical jargon.
+#### **Phase 1: Initial Evaluation**
+- Members analyze based on their roles.
 
-#### **Phase 2: Debate**
-- Low risk tolerance agents challenge high risk proposals.
+#### **Phase 2: Intensive Debate**
+- Agents challenge each other's assumptions and risks.
 
-#### **Phase 3: Voting**
-- Calculate weighted score.
-- Pass condition: Score > 0 AND No Vetoes.
+#### **Phase 3: Weighted Voting**
+- Calculate final score. Check for Vetoes.
 
-#### **Phase 4: Summary**
-- PM Steve summarizes (GO / NO-GO) and asks the Human Boss.
+#### **Phase 4: Summary & Recommendations**
+- Provide a clear GO / NO-GO summary.
 
-${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for non-tech stakeholders.' : ''}
+${enablePlain ? '#### **Phase 5: Strategic Value Report**\n- Translate results into business value for stakeholders.' : ''}
+
+Please start Phase 1 (or Phase 0 if Dynamic Recruitment is active).
 `;
 
     setGeneratedPrompt(`${systemHeader}\n${promptInstructions}`);
@@ -636,7 +639,7 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
     }, 600); // 600ms debounce to prevent input lag
 
     return () => clearTimeout(timer);
-  }, [coreTeam, users, judges, meetingRound, mission, mode, proposalRisk, proposalTags, lang, enableSRE, enablePlain]);
+  }, [coreTeam, users, judges, meetingRound, mission, mode, proposalRisk, proposalTags, lang, enableSRE, enablePlain, enableDynamicTeam]);
 
   return (
     <div className={`min-h-screen ${currentTheme.bg} ${currentTheme.textMain} p-6 font-sans pb-24 lg:pb-6 transition-colors duration-500`}>
@@ -697,6 +700,25 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
               />
 
               <div className="grid grid-cols-1 gap-2">
+                {/* Dynamic Team Toggle */}
+                <div
+                  onClick={() => setEnableDynamicTeam(!enableDynamicTeam)}
+                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${enableDynamicTeam ? 'bg-purple-900/40 border-purple-500' : 'bg-black/20 border-slate-700 hover:bg-slate-800'}`}
+                >
+                  <div className={`w-10 h-6 rounded-full p-1 transition-colors ${enableDynamicTeam ? 'bg-purple-500' : 'bg-slate-600'}`}>
+                    <div className={`w-4 h-4 bg-white rounded-full transition-transform ${enableDynamicTeam ? 'translate-x-4' : 'translate-x-0'}`} />
+                  </div>
+                  <div className="flex-1">
+                    <div className={`text-sm font-bold flex items-center gap-2 ${enableDynamicTeam ? 'text-purple-300' : 'text-slate-400'}`}>
+                      <Users className="w-4 h-4" />
+                      {t.enableDynamicTeam}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5 leading-tight opacity-80">
+                      {t.enableDynamicTeamDesc}
+                    </div>
+                  </div>
+                </div>
+
                 {/* SRE Toggle */}
                 <div
                   onClick={() => setEnableSRE(!enableSRE)}
@@ -870,6 +892,12 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
                       {t.promptReadyDesc}
                     </p>
                     <div className="flex flex-wrap justify-center gap-2 mt-4">
+                      {enableDynamicTeam && (
+                        <div className="inline-flex items-center gap-1 bg-purple-900/50 border border-purple-500/50 text-purple-300 px-2 py-1 rounded text-xs animate-bounce delay-75">
+                          <Users className="w-3 h-3" />
+                          {t.promptReadyDynamic}
+                        </div>
+                      )}
                       {enableSRE && (
                         <div className="inline-flex items-center gap-1 bg-indigo-900/50 border border-indigo-500/50 text-indigo-300 px-2 py-1 rounded text-xs animate-bounce">
                           <Activity className="w-3 h-3" />
@@ -913,27 +941,29 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
                 <>
                   <div>
                     <h3 className="text-lg font-bold text-white mb-2">1. 核心概念</h3>
-                    <p>這不是普通的 Prompt 生成器。這是一個<strong>「多智能體決策引擎」</strong>。透過模擬 7 位專家、2 位用戶與 3 位評審的交互，幫您做出更全面的決策或代碼審查。</p>
+                    <p>VTCC 是一個<strong>「萬用型多智能體指揮中心」</strong>。它不只能處理軟體開發，更能解決生活、商業或科學上的任何複雜決策。</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-blue-400">🔨 Builder 模式</strong>
-                      <p className="text-sm mt-1">用於「創造」。開發新功能、寫文案、設計架構。團隊會專注於實作與創意。</p>
+                      <strong className="text-blue-400">🔨 創新/執行模式</strong>
+                      <p className="text-sm mt-1">用於「創造與執行」。規劃新計畫、寫企劃書、解決具體困難。團隊會專注於實踐與效益。</p>
                     </div>
                     <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-green-400">🛡️ Auditor 模式</strong>
-                      <p className="text-sm mt-1">用於「找碴」。代碼審查、資安健檢。團隊會進入「有罪推定」模式，嚴格檢查漏洞。</p>
+                      <strong className="text-green-400">🛡️ 風險/審計模式</strong>
+                      <p className="text-sm mt-1">用於「找碴與風控」。審查合約、評估投資風險、安全檢查。團隊會全面質疑，確保萬無一失。</p>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-2">2. 使用流程</h3>
+                    <h3 className="text-lg font-bold text-white mb-2">2. 進階功能：AI 動態組隊</h3>
+                    <p className="text-sm">開啟 <strong>Dynamic Team</strong> 後，AI 會根據您的任務主旨（如：煮紅酒燉牛肉、購買加密貨幣、應徵跨國企業），自動在 Phase 0 招募該領域的全球頂尖專家，打造百分之百契合的智囊團。</p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">3. 使用流程</h3>
                     <ol className="list-decimal list-inside space-y-2 text-sm">
-                      <li>在左側<strong>「定義任務」</strong>輸入您想做的事（或貼上代碼片段）。</li>
-                      <li>利用中間的<strong>「提案模擬」</strong>預覽團隊反應。如果分數是紅的，代表您的想法可能會被否決。</li>
-                      <li>(選用) 啟用<strong>「SRE 監控」</strong>或<strong>「白話文報告」</strong>。</li>
-                      <li>點擊右下角的 <strong className="bg-blue-600 px-2 py-0.5 rounded text-white text-xs">複製指令</strong>。</li>
-                      <li>打開您的 AI (ChatGPT/Gemini)，貼上指令。</li>
-                      <li><strong>(關鍵)</strong> 啟動後，再將您的檔案或資料夾拖曳給 AI 進行分析。</li>
+                      <li>輸入您的<strong>「任務主旨」</strong>（任何問題皆可）。</li>
+                      <li>開啟<strong>「AI 動態組建團隊」</strong>獲得最精準的專家建議。</li>
+                      <li>(選用) 啟用<strong>「SRE 維運」</strong>（產出監控指標）或<strong>「白話文報告」</strong>（更精鍊的結論）。</li>
+                      <li>複製指令並貼給 ChatGPT/Gemini，它將會開始這場虛擬決策會議。</li>
                     </ol>
                   </div>
                 </>
@@ -941,27 +971,29 @@ ${enablePlain ? '#### **Phase 5: Plain Language Report**\n- Sam summarizes for n
                 <>
                   <div>
                     <h3 className="text-lg font-bold text-white mb-2">1. Core Concept</h3>
-                    <p>This is a <strong>Multi-Agent Decision Engine</strong>. It simulates 7 experts, 2 users, and 3 judges to help you make better software decisions or audits.</p>
+                    <p>VTCC is a <strong>Universal Multi-Agent Command Center</strong> for any complex decision-making, from software to business strategy or life planning.</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-blue-400">🔨 Builder Mode</strong>
-                      <p className="text-sm mt-1">For creation. New features, architecture, UI design.</p>
+                      <strong className="text-blue-400">🔨 Creator Mode</strong>
+                      <p className="text-sm mt-1">For creation and execution. Planning projects, proposals, solving problems.</p>
                     </div>
                     <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
                       <strong className="text-green-400">🛡️ Auditor Mode</strong>
-                      <p className="text-sm mt-1">For auditing. Code review, security checks. Strict "guilty until proven innocent" mindset.</p>
+                      <p className="text-sm mt-1">For risk assessment and auditing. Contract review, investment risks, safety checks.</p>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-2">2. How to Use</h3>
+                    <h3 className="text-lg font-bold text-white mb-2">2. Dynamic Recruitment</h3>
+                    <p className="text-sm">With <strong>Dynamic Team</strong> enabled, the AI will recruit 7 domain-specific experts at Phase 0, perfectly tailored to your unique mission.</p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">3. How to Use</h3>
                     <ol className="list-decimal list-inside space-y-2 text-sm">
-                      <li>Enter your task in <strong>"Define Mission"</strong>.</li>
-                      <li>Use <strong>"Pre-Simulation"</strong> to see how agents might vote.</li>
+                      <li>Enter your <strong>Mission</strong> (Any topic).</li>
+                      <li>Toggle <strong>"AI Dynamic Recruitment"</strong> for specialized expertise.</li>
                       <li>(Optional) Toggle <strong>"SRE Schema"</strong> or <strong>"Plain Language Report"</strong>.</li>
-                      <li>Click <strong className="bg-blue-600 px-2 py-0.5 rounded text-white text-xs">Copy Prompt</strong>.</li>
-                      <li>Paste it into your AI chat (ChatGPT/Gemini).</li>
-                      <li><strong>(Important)</strong> After starting, drag & drop your files to the AI for analysis.</li>
+                      <li>Copy the prompt and paste it to ChatGPT/Gemini to start the virtual conference.</li>
                     </ol>
                   </div>
                 </>

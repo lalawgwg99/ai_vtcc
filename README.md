@@ -2,7 +2,9 @@
 
 <div align="center">
 
-**AI 團隊決策系統 v3.6**  
+# VTCC: AI 虛擬團隊指揮中心 (v5.0)  
+>
+> **「不只是寫程式，我們為您解決任何領域的複雜決策。」**  
 *Stop Prompting Alone. Command a Workforce.*
 
 [![Live Demo](https://img.shields.io/badge/Demo-Online-success.svg)](#)
@@ -18,9 +20,9 @@
 
 ## 💡 這是什麼？ | What is VTCC?
 
-VTCC 不是另一個 ChatGPT 封裝工具，它是您的 **軟體決策檢核點 (Decision Checkpoint)**。
+VTCC 不是另一個 ChatGPT 封裝工具，它是您的 **全領域決策指揮中心 (Universal Command Center)**。
 
-在您寫下第一行程式碼之前，或準備將產品上線之前，VTCC 透過模擬 **12 位虛擬專家的多角度辯論**，幫您找出單一 AI 容易忽略的盲點。
+不論是寫程式、商業投資、法律諮詢還是生活規劃，VTCC 透過模擬 **7-12 位虛擬專家的對抗式辯論**，幫您找出單一 AI 容易忽略的盲點。
 
 ### 🎯 誰需要這個工具？
 
@@ -34,8 +36,8 @@ VTCC 不是另一個 ChatGPT 封裝工具，它是您的 **軟體決策檢核點
 
 ### 🔨 雙模運作 (Dual Modes)
 
-- **Builder 模式**：專注於創造。從零到一的功能設計、UI 規劃
-- **Auditor 模式**：專注於找碴。「有罪推定」的代碼審查、資安檢測
+- **創新/執行模式 (Creator)**：專注於創造。從零到一的計畫設計、架構規劃
+- **風險/審計模式 (Auditor)**：專注於找碴。嚴格的風險評估、資安檢測、合約審查
 
 ### 📊 預判模擬 (Pre-Simulation)
 
@@ -44,8 +46,9 @@ VTCC 不是另一個 ChatGPT 封裝工具，它是您的 **軟體決策檢核點
 
 ### 🔧 進階輸出模組
 
-- **📊 SRE 監控協議**：自動生成 KPIs、Alerts、Rollback 策略
-- **☕ 白話文結案報告**：專為非技術決策者（老闆/客戶）設計的商業價值總結
+- **👥 AI 動態組隊 (Dynamic Team)**：AI 會根據任務自動招募該領域的全球頂尖專家。
+- **📊 SRE 監控協議**：為決策產出對應的 KPIs、Alerts 與執行監控指標。
+- **☕ 策略價值報告**：由行銷/公關專家將複雜決策轉化為老闆聽得懂的戰略建議。
 
 ### 🌏 雙語支援
 
@@ -91,8 +94,9 @@ npm run preview  # 預覽生產版本
 
 在左側「定義任務」欄位輸入您的需求，例如：
 
-- "分析電商系統的效能瓶頸"
-- "審查此 React 專案的資安風險"
+- "分析跨國電商進入東南亞市場的法律與物流風險"
+- "評估是否應該將實體咖啡廳轉型為訂閱制會員專賣店"
+- "審查此遺留系統 (Legacy System) 的架構漏洞並提出重構計畫"
 
 ### **步驟 2：調整提案參數**
 
@@ -232,12 +236,9 @@ Cloudflare Pages 會**自動偵測並重新部署**，無需手動操作！
 
 ## 🗺️ Roadmap | 未來規劃
 
-- [x] **v3.6** - 核心決策引擎、SRE 模組、白話文報告 *(Current)*
-- [ ] **v4.0** - Browser Extension（瀏覽器外掛）
-  - 直接在 ChatGPT 網頁中注入 VTCC 面板
-  - 一鍵發送，免去複製貼上
-- [ ] **v4.1** - 支援 Claude、Gemini 等其他 AI 平台
-- [ ] **v5.0** - AI API 直連（可選，需付費 API）
+- [x] **v5.0** - 全領域決策支持、AI 動態專家招募、策略價值報告 *(Current)*
+- [ ] **v5.1** - Browser Extension（瀏覽器外掛）：在 ChatGPT/Gemini 中直接注入面板
+- [ ] **v6.0** - 多模型並行評估（Cross-Model Debate）
 
 ---
 
@@ -310,15 +311,14 @@ MIT License - 詳見 [LICENSE](LICENSE)
 
 ### About
 
-VTCC is a **Decision Checkpoint** for software development. It simulates **12 virtual experts** (PM, QA, Security, Investors, etc.) debating your proposal before you write a single line of code.
+VTCC is a **Universal AI Command Center** for critical decision-making. It simulates a "Virtual Brain Trust" composed of top-tier experts (tailored to your domain) to debate your proposals before you commit resources.
 
-### Key Features
+### Key Features (v5.0)
 
-- **Builder Mode**: Design features, plan architecture
-- **Auditor Mode**: Code review, security audit
-- **SRE Monitoring**: Auto-generate KPIs & alerts
-- **Plain Language Reports**: Business-friendly summaries
-- **Bilingual**: Traditional Chinese + English
+- **Universal Support**: Handles business, legal, tech, and life planning.
+- **AI Dynamic Recruitment**: Automatically hires 7 domain-specific experts at Phase 0.
+- **Strategic Value Reports**: Executive-level summaries focusing on business ROI.
+- **SRE 2.0 Monitoring**: Auto-generates execution KPIs and alert protocols.
 
 ### Quickstart
 
@@ -327,20 +327,10 @@ npm install
 npm run dev
 ```
 
-### Deploy to Cloudflare Pages
-
-1. Push to GitHub
-2. Go to [Cloudflare Pages](https://pages.cloudflare.com/)
-3. Connect your repository
-4. Set build command: `npm run build`
-5. Set output directory: `dist`
-6. Deploy! 🚀
-
 ### Roadmap
 
-- **v4.0**: Chrome Extension (inject VTCC into ChatGPT page)
-- **v4.1**: Support Claude, Gemini
-- **v5.0**: Direct AI API integration
+- **v5.1**: Chrome Extension (inject VTCC into AI chat pages)
+- **v6.0**: Multi-Model Parallel Debate (Cross-Model verification)
 
 ---
 
