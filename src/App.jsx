@@ -40,6 +40,10 @@ const TRANSLATIONS = {
     promptReadySRE: "SRE 監控",
     promptReadyPlain: "白話文報告",
     promptReadyDynamic: "動態組隊",
+    promptReadyDebate: "大師對決",
+    enableDebate: "AI 巔峰競技場 (v6.0)",
+    enableDebateDesc: "啟動擬人化大師辯論系統（Gemini, GPT, Claude），從不同面向對撞極致觀點。",
+    arenaTitle: "🏆 AI 巔峰競技場",
     viewDetails: "檢視細節",
     hideDetails: "隱藏細節",
     copyPrompt: "複製指令 (Copy Prompt)",
@@ -67,7 +71,10 @@ const TRANSLATIONS = {
     roleUserHard: "專家用戶",
     roleInvestor: "資本投資人",
     roleYouTuber: "媒體評論員",
-    roleSec: "風險管理家"
+    roleSec: "風險管理家",
+    dynamicRecruitingTitle: "AI 專家現場招募中",
+    dynamicRecruitingDesc: "系統正根據您的任務主旨，於背景鎖定全球頂尖智囊團。新團隊成員將在您貼上指令後於對話中正式現身。",
+    dynamicRecruitingActive: "動態招募協議已啟動"
   },
   en: {
     appTitle: "VTCC: AI Virtual Command Center",
@@ -553,7 +560,10 @@ ${additionalInstructions}
 #### **Phase 4: 執行摘要與 GO/NO-GO 建言 (Summary)**
 - 總結決策並給出明確建議。
 
-${enablePlain ? '#### **Phase 5: 商業價值與白話文報告 (Strategic Report)**\n- 轉換為老闆聽得懂的戰略建議。' : ''}
+#### **🏆 AI 巔峰競技場：大師對決 (Persona Debate Arena)**
+請分別以 **Gemini (全知建築師)**、**GPT (精準策略家)**、**Claude (人文倫理官)** 三種身份進行最後的思維對撞，提供不同面向的極致洞察。
+
+${enablePlain ? '#### **Phase 5: 商業價值與白話文報告 (Strategic Report)**\n- 轉換為老闆聽得懂的戰略建議，並給出「終極合成建議」。' : ''}
 
 請直接開始 Phase 1 (若啟用了 Phase 0 則先執行組隊)。` : `
 Initialize "Universal Multi-Agent Decision Engine".
@@ -632,6 +642,9 @@ Please start Phase 1 (or Phase 0 if Dynamic Recruitment is active).
     }
   };
 
+  // v6.0 Debate Arena State
+  const [enableDebate, setEnableDebate] = useState(true);
+
   // Debounce Logic
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -639,7 +652,7 @@ Please start Phase 1 (or Phase 0 if Dynamic Recruitment is active).
     }, 600); // 600ms debounce to prevent input lag
 
     return () => clearTimeout(timer);
-  }, [coreTeam, users, judges, meetingRound, mission, mode, proposalRisk, proposalTags, lang, enableSRE, enablePlain, enableDynamicTeam]);
+  }, [coreTeam, users, judges, meetingRound, mission, mode, proposalRisk, proposalTags, lang, enableSRE, enablePlain, enableDynamicTeam, enableDebate]);
 
   return (
     <div className={`min-h-screen ${currentTheme.bg} ${currentTheme.textMain} p-6 font-sans pb-24 lg:pb-6 transition-colors duration-500`}>
@@ -756,12 +769,51 @@ Please start Phase 1 (or Phase 0 if Dynamic Recruitment is active).
                     </div>
                   </div>
                 </div>
+
+                {/* Debate Arena Toggle (v6.0) */}
+                <div
+                  onClick={() => setEnableDebate(!enableDebate)}
+                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${enableDebate ? 'bg-red-900/40 border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'bg-black/20 border-slate-700 hover:bg-slate-800'}`}
+                >
+                  <div className={`w-10 h-6 rounded-full p-1 transition-colors ${enableDebate ? 'bg-red-500' : 'bg-slate-600'}`}>
+                    <div className={`w-4 h-4 bg-white rounded-full transition-transform ${enableDebate ? 'translate-x-4' : 'translate-x-0'}`} />
+                  </div>
+                  <div className="flex-1">
+                    <div className={`text-sm font-bold flex items-center gap-2 ${enableDebate ? 'text-red-300' : 'text-slate-400'}`}>
+                      <Gavel className="w-4 h-4" />
+                      {t.enableDebate}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5 leading-tight opacity-80">
+                      {t.enableDebateDesc}
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
-            <div className="space-y-4">
-              <RosterGroup title={t.sectionCore} list={coreTeam} setList={setCoreTeam} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
-              <RosterGroup title={t.sectionUser} list={users} setList={setUsers} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
-              <RosterGroup title={t.sectionJudge} list={judges} setList={setJudges} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+            <div className="space-y-4 relative">
+              {enableDynamicTeam && (
+                <div className="absolute inset-0 z-10 bg-slate-900/60 backdrop-blur-md rounded-xl border border-purple-500/50 flex flex-col items-center justify-center p-6 text-center shadow-[0_0_30px_rgba(168,85,247,0.15)] animate-in fade-in zoom-in duration-300">
+                  <div className="w-16 h-16 bg-purple-900/30 rounded-full flex items-center justify-center border border-purple-500/30 mb-4 animate-pulse">
+                    <Users className="w-8 h-8 text-purple-400" />
+                  </div>
+                  <h3 className="text-purple-300 font-bold text-lg mb-2">{t.dynamicRecruitingTitle}</h3>
+                  <p className="text-slate-400 text-xs leading-relaxed max-w-[280px]">
+                    {t.dynamicRecruitingDesc}
+                  </p>
+                  <div className="mt-4 flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                    <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                    <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce"></span>
+                  </div>
+                </div>
+              )}
+              <div className={enableDynamicTeam ? 'opacity-20 pointer-events-none' : ''}>
+                <RosterGroup title={t.sectionCore} list={coreTeam} setList={setCoreTeam} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+                <div className="h-4" />
+                <RosterGroup title={t.sectionUser} list={users} setList={setUsers} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+                <div className="h-4" />
+                <RosterGroup title={t.sectionJudge} list={judges} setList={setJudges} toggle={toggleMember} deleteMember={deleteMember} theme={currentTheme} t={t} />
+              </div>
             </div>
           </div>
 
@@ -923,86 +975,88 @@ Please start Phase 1 (or Phase 0 if Dynamic Recruitment is active).
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
       {/* Manual Modal */}
-      {showManual && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className={`w-full max-w-3xl ${currentTheme.cardBg} border ${currentTheme.border} rounded-2xl shadow-2xl max-h-[80vh] flex flex-col`}>
-            <div className="p-4 border-b border-slate-700 flex justify-between items-center">
-              <h2 className="text-xl font-bold flex items-center gap-2 text-white">
-                <HelpCircle className="w-6 h-6 text-blue-400" />
-                {t.manualTitle}
-              </h2>
-              <button onClick={() => setShowManual(false)} className="text-slate-400 hover:text-white"><X className="w-6 h-6" /></button>
-            </div>
-            <div className="p-6 overflow-y-auto text-slate-300 space-y-6 custom-scrollbar leading-relaxed">
-              {lang === 'zh' ? (
-                <>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2">1. 核心概念</h3>
-                    <p>VTCC 是一個<strong>「萬用型多智能體指揮中心」</strong>。它不只能處理軟體開發，更能解決生活、商業或科學上的任何複雜決策。</p>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-blue-400">🔨 創新/執行模式</strong>
-                      <p className="text-sm mt-1">用於「創造與執行」。規劃新計畫、寫企劃書、解決具體困難。團隊會專注於實踐與效益。</p>
+      {
+        showManual && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <div className={`w-full max-w-3xl ${currentTheme.cardBg} border ${currentTheme.border} rounded-2xl shadow-2xl max-h-[80vh] flex flex-col`}>
+              <div className="p-4 border-b border-slate-700 flex justify-between items-center">
+                <h2 className="text-xl font-bold flex items-center gap-2 text-white">
+                  <HelpCircle className="w-6 h-6 text-blue-400" />
+                  {t.manualTitle}
+                </h2>
+                <button onClick={() => setShowManual(false)} className="text-slate-400 hover:text-white"><X className="w-6 h-6" /></button>
+              </div>
+              <div className="p-6 overflow-y-auto text-slate-300 space-y-6 custom-scrollbar leading-relaxed">
+                {lang === 'zh' ? (
+                  <>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">1. 核心概念</h3>
+                      <p>VTCC 是一個<strong>「萬用型多智能體指揮中心」</strong>。它不只能處理軟體開發，更能解決生活、商業或科學上的任何複雜決策。</p>
                     </div>
-                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-green-400">🛡️ 風險/審計模式</strong>
-                      <p className="text-sm mt-1">用於「找碴與風控」。審查合約、評估投資風險、安全檢查。團隊會全面質疑，確保萬無一失。</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                        <strong className="text-blue-400">🔨 創新/執行模式</strong>
+                        <p className="text-sm mt-1">用於「創造與執行」。規劃新計畫、寫企劃書、解決具體困難。團隊會專注於實踐與效益。</p>
+                      </div>
+                      <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                        <strong className="text-green-400">🛡️ 風險/審計模式</strong>
+                        <p className="text-sm mt-1">用於「找碴與風控」。審查合約、評估投資風險、安全檢查。團隊會全面質疑，確保萬無一失。</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2">2. 進階功能：AI 動態組隊</h3>
-                    <p className="text-sm">開啟 <strong>Dynamic Team</strong> 後，AI 會根據您的任務主旨（如：煮紅酒燉牛肉、購買加密貨幣、應徵跨國企業），自動在 Phase 0 招募該領域的全球頂尖專家，打造百分之百契合的智囊團。</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2">3. 使用流程</h3>
-                    <ol className="list-decimal list-inside space-y-2 text-sm">
-                      <li>輸入您的<strong>「任務主旨」</strong>（任何問題皆可）。</li>
-                      <li>開啟<strong>「AI 動態組建團隊」</strong>獲得最精準的專家建議。</li>
-                      <li>(選用) 啟用<strong>「SRE 維運」</strong>（產出監控指標）或<strong>「白話文報告」</strong>（更精鍊的結論）。</li>
-                      <li>複製指令並貼給 ChatGPT/Gemini，它將會開始這場虛擬決策會議。</li>
-                    </ol>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2">1. Core Concept</h3>
-                    <p>VTCC is a <strong>Universal Multi-Agent Command Center</strong> for any complex decision-making, from software to business strategy or life planning.</p>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-blue-400">🔨 Creator Mode</strong>
-                      <p className="text-sm mt-1">For creation and execution. Planning projects, proposals, solving problems.</p>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">2. 進階功能：AI 動態組隊</h3>
+                      <p className="text-sm">開啟 <strong>Dynamic Team</strong> 後，AI 會根據您的任務主旨（如：煮紅酒燉牛肉、購買加密貨幣、應徵跨國企業），自動在 Phase 0 招募該領域的全球頂尖專家，打造百分之百契合的智囊團。</p>
                     </div>
-                    <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                      <strong className="text-green-400">🛡️ Auditor Mode</strong>
-                      <p className="text-sm mt-1">For risk assessment and auditing. Contract review, investment risks, safety checks.</p>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">3. 使用流程</h3>
+                      <ol className="list-decimal list-inside space-y-2 text-sm">
+                        <li>輸入您的<strong>「任務主旨」</strong>（任何問題皆可）。</li>
+                        <li>開啟<strong>「AI 動態組建團隊」</strong>獲得最精準的專家建議。</li>
+                        <li>(選用) 啟用<strong>「SRE 維運」</strong>（產出監控指標）或<strong>「白話文報告」</strong>（更精鍊的結論）。</li>
+                        <li>複製指令並貼給 ChatGPT/Gemini，它將會開始這場虛擬決策會議。</li>
+                      </ol>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2">2. Dynamic Recruitment</h3>
-                    <p className="text-sm">With <strong>Dynamic Team</strong> enabled, the AI will recruit 7 domain-specific experts at Phase 0, perfectly tailored to your unique mission.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2">3. How to Use</h3>
-                    <ol className="list-decimal list-inside space-y-2 text-sm">
-                      <li>Enter your <strong>Mission</strong> (Any topic).</li>
-                      <li>Toggle <strong>"AI Dynamic Recruitment"</strong> for specialized expertise.</li>
-                      <li>(Optional) Toggle <strong>"SRE Schema"</strong> or <strong>"Plain Language Report"</strong>.</li>
-                      <li>Copy the prompt and paste it to ChatGPT/Gemini to start the virtual conference.</li>
-                    </ol>
-                  </div>
-                </>
-              )}
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">1. Core Concept</h3>
+                      <p>VTCC is a <strong>Universal Multi-Agent Command Center</strong> for any complex decision-making, from software to business strategy or life planning.</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                        <strong className="text-blue-400">🔨 Creator Mode</strong>
+                        <p className="text-sm mt-1">For creation and execution. Planning projects, proposals, solving problems.</p>
+                      </div>
+                      <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
+                        <strong className="text-green-400">🛡️ Auditor Mode</strong>
+                        <p className="text-sm mt-1">For risk assessment and auditing. Contract review, investment risks, safety checks.</p>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">2. Dynamic Recruitment</h3>
+                      <p className="text-sm">With <strong>Dynamic Team</strong> enabled, the AI will recruit 7 domain-specific experts at Phase 0, perfectly tailored to your unique mission.</p>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">3. How to Use</h3>
+                      <ol className="list-decimal list-inside space-y-2 text-sm">
+                        <li>Enter your <strong>Mission</strong> (Any topic).</li>
+                        <li>Toggle <strong>"AI Dynamic Recruitment"</strong> for specialized expertise.</li>
+                        <li>(Optional) Toggle <strong>"SRE Schema"</strong> or <strong>"Plain Language Report"</strong>.</li>
+                        <li>Copy the prompt and paste it to ChatGPT/Gemini to start the virtual conference.</li>
+                      </ol>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   );
 };
 

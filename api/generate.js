@@ -125,10 +125,23 @@ async function runPromptChain(model, config) {
     );
     report.phase4 = result4.response.text();
 
+    // v6.0: 多模型擬人化大師辯論 (Cross-Model Persona Debate)
+    const arenaResult = await chat.sendMessage(`
+### 🏆 AI 巔峰競技場：大師對決 (Persona Debate Arena)
+請以以下三種擬人化身份，針對此任務進行最後的觀點碰撞：
+
+1. **全知建築師 Gemini (The Oracle)**: 站位：長遠視角、結構化思維。
+2. **精準策略家 GPT (The Strategist)**: 站位：高效率、ROI 導向、直擊痛點。
+3. **人文倫理官 Claude (The Ethicist)**: 站位：安全性、情感價值、風險防範。
+
+請分別輸出這三者的簡短辯論內容。
+`);
+    report.debateArena = arenaResult.response.text();
+
     // Phase 5: 商業價值與白話文報告（選用）
     if (enablePlain) {
         const result5 = await chat.sendMessage(
-            "請繼續 Phase 5: 商業價值與白話文報告 (Strategic Report)。由行銷公關撰寫給 BOSS 看的最終總結，禁止專業術語，專注於 ROI 與風險比喻。"
+            "請繼續 Phase 5: 商業價值與白話文報告 (Strategic Report)。由行銷公關撰寫給 BOSS 看的最終總結，最後請綜合三位大師的觀點，給出一個「終極合成建議」。"
         );
         report.phase5 = result5.response.text();
     }
